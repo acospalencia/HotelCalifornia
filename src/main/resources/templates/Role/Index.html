@@ -1,0 +1,41 @@
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/_mainLayout">
+
+<div layout:fragment="content">
+
+
+    <h1>Listado de grupos </h1>
+    <a th:href="@{/roles/create}" class="btn btn-outline-primary">Nuevo grupo</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            I
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item: ${roles}">
+            <td th:text="${item.id}"></td>
+            <td th:text="${item.roleName}"></td>
+
+            <td>
+                <a th:href="@{/roles/details/{id} (id = ${item.id}) }" class="btn btn-outline-secondary">Detalles</a> |
+                <a th:href="@{/roles/edit/{id} (id = ${item.id})}" class="btn btn-outline-info">Editar</a> |
+                <a th:href="@{/roles/remove/{id} (id = ${item.id}) }" class="btn btn-outline-danger">Eliminar</a> </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item" th:each="pageNumber: ${pageNumbers}">
+                <a class="page-link" th:href="@{1/roles?page=${pageNumber}}" th:text="${pageNumber}"></a>
+            </li>
+        </ul>
+    </nav>
+</div>

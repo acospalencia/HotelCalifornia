@@ -10,7 +10,7 @@ import org.esfe.repositorios.IRoomImageRepository;
 import org.esfe.servicios.interfaces.IRoomImageService;
 
 @Service
-public class RoomImageServiceImpl implements IRoomImageRepository {
+public class RoomImageServiceImpl {
 
     @Autowired
     private IRoomImageRepository roomImageRepository;

@@ -1,6 +1,8 @@
 package org.esfe.modelos;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import javassist.bytecode.ByteArray;
 
 @Entity
 public class RoomImage {
@@ -13,7 +15,7 @@ public class RoomImage {
     @JoinColumn(name = "room_id")
     private RoomImage room;
 
-    @Lob
+    @NotBlank(message = "El array de bytes de la imagen es requerido")
     private String bytesArrayImage;
 
     public RoomImage() {}
