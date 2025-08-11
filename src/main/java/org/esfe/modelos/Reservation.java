@@ -15,11 +15,12 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "El id del usuario es reqerido")
+    @NotBlank(message = "El id del usuario es requerido")
     public Integer userId;
 
-    @NotBlank(message = "El id de la habitación es reqerido")
+    @NotBlank(message = "El id de la habitación es requerido")
     public Integer roomId;
+
     @NotBlank(message = "La fecha de entrada es requerido")
     public LocalDate chekInDate;
 
@@ -33,45 +34,12 @@ public class Reservation {
     public Integer payId;
 
 
-
-    public Integer getPayId() {
-        return payId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setPayId(Integer payId) {
-        this.payId = payId;
-    }
-
-    public BigDecimal getTotalPurchase() {
-        return totalPurchase;
-    }
-
-    public void setTotalPurchase(BigDecimal totalPurchase) {
-        this.totalPurchase = totalPurchase;
-    }
-
-    public LocalDate getChekOutDate() {
-        return chekOutDate;
-    }
-
-    public void setChekOutDate(LocalDate chekOutDate) {
-        this.chekOutDate = chekOutDate;
-    }
-
-    public LocalDate getChekInDate() {
-        return chekInDate;
-    }
-
-    public void setChekInDate(LocalDate chekInDate) {
-        this.chekInDate = chekInDate;
-    }
-
-    public Integer getRoomId() {
-        return roomId;
-    }
-
-    public void setRoomId(Integer roomId) {
-        this.roomId = roomId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getUserId() {
@@ -82,11 +50,43 @@ public class Reservation {
         this.userId = userId;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getRoomId() {
+        return roomId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setRoomId(Integer roomId) {
+        this.roomId = roomId;
+    }
+
+    public LocalDate getChekInDate() {
+        return chekInDate;
+    }
+
+    public void setChekInDate(LocalDate chekInDate) {
+        this.chekInDate = chekInDate;
+    }
+
+    public LocalDate getChekOutDate() {
+        return chekOutDate;
+    }
+
+    public void setChekOutDate(LocalDate chekOutDate) {
+        this.chekOutDate = chekOutDate;
+    }
+
+    public BigDecimal getTotalPurchase() {
+        return totalPurchase;
+    }
+
+    public void setTotalPurchase(BigDecimal totalPurchase) {
+        this.totalPurchase = totalPurchase;
+    }
+
+    public Integer getPayId() {
+        return payId;
+    }
+
+    public void setPayId(Integer payId) {
+        this.payId = payId;
     }
 }

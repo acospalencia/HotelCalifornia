@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class RoomType {
@@ -14,13 +15,11 @@ public class RoomType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank(message = "El nombre del tipo de habitacion es requerido")
     private String typeName;
+
+    @NotBlank(message = "El nombre del estado es requerido")
     private double roomPrice;
-
-    // Constructor vacío requerido por JPA
-    public RoomType() {
-    }
-
 
     public Integer getId() {
         return id;

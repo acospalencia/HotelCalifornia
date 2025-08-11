@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name="payments")
@@ -19,9 +20,7 @@ public class Payment {
     public Integer reservationId;
 
     @NotBlank(message = "La fecha de pago es requerida")
-    public LocalDate payDate;
-
-
+    public Date payDate;
 
     public Integer getId() {
         return id;
@@ -39,11 +38,11 @@ public class Payment {
         this.reservationId = reservationId;
     }
 
-    public LocalDate getPayDate() {
+    public Date getPayDate() {
         return payDate;
     }
 
-    public void setPayDate(LocalDate payDate) {
+    public void setPayDate(Date payDate) {
         this.payDate = payDate;
     }
 }

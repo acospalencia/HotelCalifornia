@@ -1,12 +1,19 @@
 package org.esfe.servicios.interfaces;
 
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import java.util.List;
+import java.util.Optional;
 import org.esfe.modelos.RoomImage;
 
 public interface IRoomImageService {
-    List<RoomImage> findAll();
-    RoomImage findById(Integer id);
-    RoomImage save(RoomImage roomImage);
-    void deleteById(Integer id);
+    Page<RoomImage> buscarTodosPaginados(Pageable pageable);
+
+    List<RoomImage> obtenerTodos();
+
+    Optional<RoomImage> bucarPorId(Integer id);
+
+    RoomImage createOrEditOne(RoomImage roomImage);
+
+    void eliminarPorId(Integer roomImage);
 }
