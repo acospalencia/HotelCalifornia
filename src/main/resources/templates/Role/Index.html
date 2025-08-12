@@ -6,7 +6,7 @@
 
 
     <h1>Listado de grupos </h1>
-    <a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Nuevo grupo</a>
+    <a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Nuevo role</a>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -21,7 +21,11 @@
             <td th:text="${item.roleName}"></td>
 
             <td>
-                <a th:href="@{/roles/remove/{id} (id = ${item.id}) }" class="btn btn-outline-danger">Eliminar</a></td>
+                <a th:href="@{/role/remove/{id}(id=${item.id})}" class="btn btn-outline-danger"
+                   onclick="return confirm('¿Seguro que deseas eliminar este role?');">
+                    Eliminar
+                </a>
+
         </tr>
         </tbody>
     </table>

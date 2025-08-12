@@ -38,7 +38,7 @@ public class RoleService implements IRolesService {
     }
 
     @Override
-    public void eliminarPorId(Integer role) {
-        rolesRepository.deleteById(role);
+    public void eliminarPorId(Integer roleInt) {
+        rolesRepository.deleteById(roleInt);
     }
 }

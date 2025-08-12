@@ -9,10 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -59,10 +56,29 @@ public class RoleController {
         if (result.hasErrors()) {
             model.addAttribute(role);
             attributes.addFlashAttribute("error", "No se pudo guardar debido a un error.");
-            return "role/create";
+            return "redirect:/role";
         }
         rolesService.createOrEditOne(role);
         attributes.addFlashAttribute("msg", "Grupo creado correctamente.");
         return "redirect:/role";
     }
+
+    @GetMapping("/remove/{id}")
+    public String remove(@PathVariable("id") Integer id, RedirectAttributes attributes) {
+        rolesService.eliminarPorId(id);
+        attributes.addFlashAttribute("msg", "Grupo eliminado correctamente.");
+        return "redirect:/role";
+    }
+
+/*
+    @PostMapping("/delete")
+    public String delete(Role role, RedirectAttributes attributes){
+
+        rolesService.eliminarPorId(role.getId());
+        attributes.addFlashAttribute("msg", "Grupo eliminado correctamente.");
+        return "redirect:/role";
+    }
+ */
 }
+
+
