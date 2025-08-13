@@ -1,0 +1,71 @@
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/_mainLayout">
+
+<div layout:fragment="content">
+
+
+    <h1>Listado de grupos </h1>
+    <a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Nuevo role</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item: ${roomimage}">
+            <td th:text="${item.id}"></td>
+            <td th:text="${item.roleName}"></td>
+
+            <td>
+                <!--
+                <a th:href="@{/role/remove/{id}(id=${item.id})}" class="btn btn-outline-danger"
+                   onclick="return confirm('¿Seguro que deseas eliminar este role?');">
+                    Eliminar
+                </a>
+                 -->
+        </tr>
+        </tbody>
+    </table>
+
+
+    <!-- Modal -->
+    <!--
+<div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar nuevo Rol</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form th:action="@{/role/save}" th:object="${role}" method="post">
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <label for="roleName"  class="form-label">Nombre del Rol</label>
+                        <input required type="text" class="form-control" th:field="*{roleName}" id="roleName" placeholder="P.e: Administrador">
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+-->
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item" th:each="pageNumber: ${pageNumbers}">
+            <a class="page-link" th:href="@{1/roomimage?page=${pageNumber}}" th:text="${pageNumber}"></a>
+        </li>
+    </ul>
+</nav>
+</div>
