@@ -30,9 +30,7 @@ public class RoomImageController {
     private IRoomImageService imageService;
 
     @GetMapping
-    public String Index(RoomImage roomImage, Model model,
-                        @RequestParam("page") Optional<Integer> page,
-                        @RequestParam("size") Optional<Integer> size) {
+    public String Index(RoomImage roomImage, Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
 
         int currentPage = page.orElse(1) - 1;
         int pageSize = size.orElse(5);
@@ -64,11 +62,7 @@ public class RoomImageController {
 
 //guardar imagen
 @PostMapping("/save")
-public String save(@ModelAttribute RoomImage roomImage,
-                   @RequestParam("imagenFile") MultipartFile imagenFile,
-                   BindingResult result,
-                   Model model,
-                   RedirectAttributes attributes) {
+public String save(@ModelAttribute RoomImage roomImage, @RequestParam("imagenFile") MultipartFile imagenFile, BindingResult result, Model model, RedirectAttributes attributes) {
 
     if (result.hasErrors()) {
         model.addAttribute("roomImage", roomImage);
