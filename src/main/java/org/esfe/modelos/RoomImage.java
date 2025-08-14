@@ -2,6 +2,7 @@ package org.esfe.modelos;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import javassist.bytecode.ByteArray;
 
 @Entity
@@ -11,11 +12,12 @@ public class RoomImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "El id de la habitacion es requerido")
+    @NotNull(message = "El id de la habitacion es requerido")
     private Integer room_Id;
 
-    @NotBlank(message = "El array de bytes de la imagen es requerido")
-    private String bytesArrayImage;
+    @Lob
+    @NotNull(message = "El array de bytes de la imagen es requerido")
+    private byte[] bytesArrayImage;
 
     public Integer getId() {
         return id;
@@ -33,11 +35,11 @@ public class RoomImage {
         this.room_Id = room_Id;
     }
 
-    public String getBytesArrayImage() {
+    public byte[] getBytesArrayImage() {
         return bytesArrayImage;
     }
 
-    public void setBytesArrayImage(String bytesArrayImage) {
+    public void setBytesArrayImage(byte[] bytesArrayImage) {
         this.bytesArrayImage = bytesArrayImage;
     }
 }

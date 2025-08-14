@@ -59,14 +59,14 @@ public class RoleController {
             return "redirect:/role";
         }
         rolesService.createOrEditOne(role);
-        attributes.addFlashAttribute("msg", "Grupo creado correctamente.");
+        attributes.addFlashAttribute("msg", "Rol creado correctamente.");
         return "redirect:/role";
     }
 
     @GetMapping("/remove/{id}")
     public String remove(@PathVariable("id") Integer id, RedirectAttributes attributes) {
         rolesService.eliminarPorId(id);
-        attributes.addFlashAttribute("msg", "Grupo eliminado correctamente.");
+        attributes.addFlashAttribute("msg", "Rol eliminado correctamente.");
         return "redirect:/role";
     }
 
