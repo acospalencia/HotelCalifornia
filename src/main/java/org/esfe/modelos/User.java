@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "users")
 
@@ -30,8 +33,13 @@ public class User {
     private Integer age;
 
     @NotBlank(message = "El id del rol es requerido")
-    private Integer rolId;
+    private Role rolId;
 
+    @ManyToOne
+    @JoinColumn(
+            name = "rol_Id"
+    )
+    
     public Integer getId() {
         return id;
     }
@@ -80,11 +88,11 @@ public class User {
         this.age = age;
     }
 
-    public Integer getRolId() {
+    public Role getRolId() {
         return rolId;
     }
 
-    public void setRolId(Integer rolId) {
+    public void setRolId(Role rolId) {
         this.rolId = rolId;
     }
 }

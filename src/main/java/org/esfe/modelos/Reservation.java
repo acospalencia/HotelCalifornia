@@ -2,37 +2,39 @@ package org.esfe.modelos;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "reservations")
-
 public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "El id del usuario es requerido")
-    public Integer userId;
+    @NotNull(message = "El id del usuario es requerido")
+    private Integer userId;
 
-    @NotBlank(message = "El id de la habitación es requerido")
-    public Integer roomId;
+    @NotNull(message = "El id de la habitación es requerido")
+    private Integer roomId;
 
-    @NotBlank(message = "La fecha de entrada es requerido")
-    public LocalDate chekInDate;
+    @NotNull(message = "La fecha de entrada es requerida")
+    private LocalDate checkInDate;
 
-    @NotBlank(message = "La fecha de salida es requerido")
-    public LocalDate chekOutDate;
+    @NotNull(message = "La fecha de salida es requerida")
+    private LocalDate checkOutDate;
 
-    @NotBlank(message = "El total del monto es requerido")
-    public BigDecimal totalPurchase;
+    @NotNull(message = "El total del monto es requerido")
+    private BigDecimal totalPurchase;
 
-    @NotBlank(message = "El Id del pago es necesario")
-    public Integer payId;
+    @NotNull(message = "La fecha de pago es requerida")
+    private LocalDate payDate;
 
+    @NotNull(message = "La cantidad pagada es requerida")
+    private BigDecimal amountPaid;
 
     public Integer getId() {
         return id;
@@ -58,20 +60,20 @@ public class Reservation {
         this.roomId = roomId;
     }
 
-    public LocalDate getChekInDate() {
-        return chekInDate;
+    public LocalDate getCheckInDate() {
+        return checkInDate;
     }
 
-    public void setChekInDate(LocalDate chekInDate) {
-        this.chekInDate = chekInDate;
+    public void setCheckInDate(LocalDate checkInDate) {
+        this.checkInDate = checkInDate;
     }
 
-    public LocalDate getChekOutDate() {
-        return chekOutDate;
+    public LocalDate getCheckOutDate() {
+        return checkOutDate;
     }
 
-    public void setChekOutDate(LocalDate chekOutDate) {
-        this.chekOutDate = chekOutDate;
+    public void setCheckOutDate(LocalDate checkOutDate) {
+        this.checkOutDate = checkOutDate;
     }
 
     public BigDecimal getTotalPurchase() {
@@ -82,11 +84,19 @@ public class Reservation {
         this.totalPurchase = totalPurchase;
     }
 
-    public Integer getPayId() {
-        return payId;
+    public LocalDate getPayDate() {
+        return payDate;
     }
 
-    public void setPayId(Integer payId) {
-        this.payId = payId;
+    public void setPayDate(LocalDate payDate) {
+        this.payDate = payDate;
+    }
+
+    public BigDecimal getAmountPaid() {
+        return amountPaid;
+    }
+
+    public void setAmountPaid(BigDecimal amountPaid) {
+        this.amountPaid = amountPaid;
     }
 }
