@@ -13,7 +13,7 @@ import java.util.Date;
 
 public class Payment {
 
-    /*
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -48,5 +48,5 @@ public class Payment {
         this.payDate = payDate;
     }
 
-    */
+
 }

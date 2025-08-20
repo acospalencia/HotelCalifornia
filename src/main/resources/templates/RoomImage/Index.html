@@ -14,7 +14,7 @@
                  th:src="'data:image/png;base64,' + ${item.base64Image}"
                  alt="Imagen habitación" style="width:14em;height:14em;"/>
             <div class="card-body   ">
-                <strong class="card-title" th:text="'Imagen de habitación: ' + ${item.roomId}"></strong>
+                <strong class="card-title" th:text="'Imagen de habitación: ' + ${item.roomId.roomNumber}"></strong>
                 <div class="d-flex justify-content-center">
                     <a th:href="@{/roomimage/remove/{id}(id=${item.id})}" class="btn btn-outline-danger"
                        onclick="return confirm('¿Seguro que deseas eliminar este role?');">
@@ -41,7 +41,10 @@
                         <div class="mb-3">
                             <label for="room_Id" class="form-label">Id de la habitacion</label>
 
-                            <input required type="number" class="form-control" th:field="*{room_Id}" id="room_Id">
+                            <select class="form-select" th:field="*{room_Id}">
+                                <option th:each="item: ${ListadoRooms}"  th:value="${item.roomNumber}"
+                                        th:text="'Habitacion #' + ${item.roomNumber} + ' descripcion: ' + ${item.description}" ></option>
+                            </select>
 
                             <label for="bytesArrayImage" class="form-label">Imagen de la habitacion</label>
 

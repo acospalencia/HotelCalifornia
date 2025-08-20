@@ -17,8 +17,6 @@ public class Role {
     @NotBlank(message = "El nombre del rol es requerido")
     private String roleName;
 
-    private Set<User> users = new HashSet<>();
-
 
     public String getRoleName() {
         return roleName;

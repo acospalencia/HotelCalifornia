@@ -3,10 +3,10 @@ package org.esfe.modelos;
 public class RoomImageDTO {
 
     private Integer id;
-    private Integer roomId;
+    private Room roomId;
     private String base64Image;
 
-    public RoomImageDTO(Integer id, Integer roomId, String base64Image) {
+    public RoomImageDTO(Integer id, Room roomId, String base64Image) {
         this.id = id;
         this.roomId = roomId;
         this.base64Image = base64Image;
@@ -20,11 +20,11 @@ public class RoomImageDTO {
         this.id = id;
     }
 
-    public Integer getRoomId() {
+    public Room getRoomId() {
         return roomId;
     }
 
-    public void setRoomId(Integer roomId) {
+    public void setRoomId(Room roomId) {
         this.roomId = roomId;
     }
 

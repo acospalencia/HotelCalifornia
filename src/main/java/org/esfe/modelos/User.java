@@ -32,13 +32,10 @@ public class User {
     @NotBlank(message = "La edad es requerido")
     private Integer age;
 
-    @NotBlank(message = "El id del rol es requerido")
-    private Role rolId;
-
     @ManyToOne
-    @JoinColumn(
-            name = "rol_Id"
-    )
+    @JoinColumn(name = "rol_Id", nullable = false)
+    @NotBlank(message = "El id del rol es requerido")
+    private Role rol;
     
     public Integer getId() {
         return id;
@@ -88,11 +85,11 @@ public class User {
         this.age = age;
     }
 
-    public Role getRolId() {
-        return rolId;
+    public Role getRol() {
+        return rol;
     }
 
-    public void setRolId(Role rolId) {
-        this.rolId = rolId;
+    public void setRol(Role rol) {
+        this.rol = rol;
     }
 }

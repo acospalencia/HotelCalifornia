@@ -1,9 +1,11 @@
 package org.esfe.controladores;
 
 import org.esfe.modelos.Role;
+import org.esfe.modelos.Room;
 import org.esfe.modelos.RoomImage;
 import org.esfe.modelos.RoomImageDTO;
 import org.esfe.servicios.interfaces.IRoomImageService;
+import org.esfe.servicios.interfaces.IRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,6 +30,8 @@ public class RoomImageController {
 
     @Autowired
     private IRoomImageService imageService;
+    @Autowired
+    private IRoomService roomService;
 
     @GetMapping
     public String Index(RoomImage roomImage, Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
@@ -56,6 +60,9 @@ public class RoomImageController {
                     .collect(Collectors.toList());
             model.addAttribute("pageNumbers", pageNumber);
         }
+
+        List<Room> listaRooms = roomService.obtenerTodos();
+        model.addAttribute("ListadoRooms", listaRooms);
 
         return "roomimage/Index";
     }

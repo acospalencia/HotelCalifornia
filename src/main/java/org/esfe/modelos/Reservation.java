@@ -15,11 +15,15 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @ManyToOne
+    @JoinColumn(name = "user_Id", nullable = false)
     @NotNull(message = "El id del usuario es requerido")
-    private Integer userId;
+    private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "room_Id", nullable = false)
     @NotNull(message = "El id de la habitación es requerido")
-    private Integer roomId;
+    private Room roomId;
 
     @NotNull(message = "La fecha de entrada es requerida")
     private LocalDate checkInDate;
@@ -44,19 +48,19 @@ public class Reservation {
         this.id = id;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Integer getRoomId() {
+    public Room getRoomId() {
         return roomId;
     }
 
-    public void setRoomId(Integer roomId) {
+    public void setRoomId(Room roomId) {
         this.roomId = roomId;
     }
 

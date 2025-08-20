@@ -12,8 +12,10 @@ public class RoomImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull(message = "El id de la habitacion es requerido")
-    private Integer room_Id;
+    @ManyToOne
+    @JoinColumn(name = "room_Id", nullable = false)
+    @NotNull(message = "El id de la habitación es requerido")
+    private Room room_Id;
 
     @Lob
     @NotNull(message = "El array de bytes de la imagen es requerido")
@@ -27,11 +29,11 @@ public class RoomImage {
         this.id = id;
     }
 
-    public Integer getRoom_Id() {
+    public Room getRoom_Id() {
         return room_Id;
     }
 
-    public void setRoom_Id(Integer room_Id) {
+    public void setRoom_Id(Room room_Id) {
         this.room_Id = room_Id;
     }
 
