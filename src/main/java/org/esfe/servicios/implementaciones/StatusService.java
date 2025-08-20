@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class StatusService implements IStatusService {
+public abstract class StatusService implements IStatusService {
 
     @Autowired
     private IStatusRepository statusRepository;
