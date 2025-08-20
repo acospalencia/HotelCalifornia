@@ -20,10 +20,11 @@
         <tbody>
         <tr th:each="item: ${rooms}">
             <td th:text="${item.roomNumber}"></td>
-            <td th:text="${item.roomTypeId}"></td>
+            <td th:text="${item.roomTypeId.typeName}"></td>
             <td th:text="${item.floor}"></td>
-            <td th:text="${item.statusId}"></td>
+            <td th:text="${item.statusId.statusName}"></td>
             <td th:text="${item.description}"></td>
+
 
             <td>
                 <a th:href="@{/room/remove/{roomNumber}(roomNumber=${item.roomNumber})}" class="btn btn-outline-danger"
@@ -49,13 +50,20 @@
 
                         <div class="mb-3">
                             <label for="roomTypeId"  class="form-label">Id tipo de habitación</label>
-                            <input required type="text" class="form-control" th:field="*{roomTypeId}" id="roomTypeId" >
+                            <select class="form-select" th:field="*{roomTypeId}">
+                                <option th:each="item: ${listadoTipos}" th:value="${item.id}"
+                                th:text="'Tipo: '+${item.typeName}+' Precio: '+${item.roomPrice}"></option>
+                            </select>
 
                             <label for="floor"  class="form-label"># de piso</label>
                             <input required type="text" class="form-control" th:field="*{floor}" id="floor" >
 
                             <label for="statusId"  class="form-label">Id de estado</label>
-                            <input required type="text" class="form-control" th:field="*{statusId}" id="statusId" >
+                            <select class="form-select" th:field="*{statusId}">
+                                <option th:each="item: ${estados}" th:value="${item.id}"
+                                        th:text="'Estado: '+${item.statusName}"></option>
+                            </select>
+
 
                             <label for="description"  class="form-label">descripcion de habitacion</label>
                             <input required type="text" class="form-control" th:field="*{description}" id="description" placeholder="P.e: Administrador">

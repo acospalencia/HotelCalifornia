@@ -15,14 +15,18 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer roomNumber;
 
+    @ManyToOne
+    @JoinColumn(name = "roomTypeId", nullable = false)
     @NotNull(message = "El id del tipo de habitacion es requerido")
-    private Integer roomTypeId ;
+    private RoomType roomTypeId ;
 
     @NotBlank(message = "El numero de piso es requerido")
     private String floor;
 
+    @ManyToOne
+    @JoinColumn(name = "statusId", nullable = false)
     @NotNull(message = "El id de estado es requerido")
-    private Integer statusId;
+    private Status statusId;
 
     @NotBlank(message = "La descripcion de la habitacion es requerida")
     private String description;
@@ -35,11 +39,11 @@ public class Room {
         this.roomNumber = roomNumber;
     }
 
-    public Integer getRoomTypeId() {
+    public RoomType getRoomTypeId() {
         return roomTypeId;
     }
 
-    public void setRoomTypeId(Integer roomTypeId) {
+    public void setRoomTypeId(RoomType roomTypeId) {
         this.roomTypeId = roomTypeId;
     }
 
@@ -51,11 +55,11 @@ public class Room {
         this.floor = floor;
     }
 
-    public Integer getStatusId() {
+    public Status getStatusId() {
         return statusId;
     }
 
-    public void setStatusId(Integer statusId) {
+    public void setStatusId(Status statusId) {
         this.statusId = statusId;
     }
 
