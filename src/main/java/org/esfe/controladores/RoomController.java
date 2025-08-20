@@ -2,7 +2,11 @@ package org.esfe.controladores;
 
 import org.esfe.modelos.Role;
 import org.esfe.modelos.Room;
+import org.esfe.modelos.RoomType;
+import org.esfe.modelos.Status;
 import org.esfe.servicios.interfaces.IRoomService;
+import org.esfe.servicios.interfaces.IRoomTypeService;
+import org.esfe.servicios.interfaces.IStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +28,10 @@ import java.util.stream.IntStream;
 public class RoomController {
     @Autowired
     private IRoomService roomService;
+    @Autowired
+    private IRoomTypeService roomTypeService;
+    @Autowired
+    private IStatusService statusService;
 
     @GetMapping
     public String Index(Room room, Model model, @RequestParam("page")Optional<Integer> page, @RequestParam("size")Optional<Integer> size){
@@ -35,6 +43,15 @@ public class RoomController {
 
         Page<Room> rooms = roomService.buscarTodosPaginados(pageable);
         model.addAttribute("rooms", rooms);
+
+        List<RoomType> listadoTipos =  roomTypeService.obtenerTodos();
+        model.addAttribute("listadoTipos",listadoTipos);
+
+        List<Status> estados = statusService.obtenerTodos();
+        model.addAttribute("estados",estados);
+
+
+
 
         int totalPages = rooms.getTotalPages();
         if (totalPages > 0){
