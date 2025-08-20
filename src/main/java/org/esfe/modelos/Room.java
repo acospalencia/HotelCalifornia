@@ -2,6 +2,7 @@ package org.esfe.modelos;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,13 +15,13 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer roomNumber;
 
-    @NotBlank(message = "El id del tipo de habitacion es requerido")
+    @NotNull(message = "El id del tipo de habitacion es requerido")
     private Integer roomTypeId ;
 
     @NotBlank(message = "El numero de piso es requerido")
     private String floor;
 
-    @NotBlank(message = "El id de estado es requerido")
+    @NotNull(message = "El id de estado es requerido")
     private Integer statusId;
 
     @NotBlank(message = "La descripcion de la habitacion es requerida")
