@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class RoomType {
@@ -18,7 +19,7 @@ public class RoomType {
     @NotBlank(message = "El nombre del tipo de habitacion es requerido")
     private String typeName;
 
-    @NotBlank(message = "El nombre del estado es requerido")
+    @NotNull(message = "El nombre del estado es requerido")
     private double roomPrice;
 
     public Integer getId() {
