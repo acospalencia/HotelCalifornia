@@ -18,4 +18,6 @@ public interface IStatusService {
     Status createOrEditOne(Status status);
 
     void eliminarPorId(Integer status);
+
+    void createOrEdiOne(Status status);
 }
