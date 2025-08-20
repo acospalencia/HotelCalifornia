@@ -47,7 +47,7 @@ public class StatusController {
             attributes.addFlashAttribute("error", "No se pudo guardar debido a un error.");
             return "redirect:/status";
         }
-        statusService.createOrEdiOne(status);
+        statusService.createOrEditOne(status);
         attributes.addFlashAttribute("Grupo creado correctamente.", "msg");
         return "redirect:/status";
 

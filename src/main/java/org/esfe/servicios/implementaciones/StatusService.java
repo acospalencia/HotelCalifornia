@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public abstract class StatusService implements IStatusService {
+public class StatusService implements IStatusService {
 
     @Autowired
     private IStatusRepository statusRepository;
@@ -41,4 +41,5 @@ public abstract class StatusService implements IStatusService {
     public void eliminarPorId(Integer status) {
         statusRepository.deleteById(status);
     }
+
 }

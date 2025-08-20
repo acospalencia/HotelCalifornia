@@ -19,5 +19,4 @@ public interface IStatusService {
 
     void eliminarPorId(Integer status);
 
-    void createOrEdiOne(Status status);
 }
