@@ -3,8 +3,8 @@
       layout:decorate="/layouts/_mainLayout">
 
 <div layout:fragment="content">
-    <h1>Listado de grupos </h1>
-    <a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Nuevo grupo</a>
+    <h1>Listado de Habitaciones </h1>
+    <a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Nueva Habitacion</a>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -42,31 +42,31 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar nuevo Rol</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar nueva Habitacion</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form th:action="@{/room/save}" th:object="${room}" method="post">
                     <div class="modal-body">
 
                         <div class="mb-3">
-                            <label for="roomTypeId"  class="form-label">Id tipo de habitación</label>
-                            <select class="form-select" th:field="*{roomTypeId}">
+                            <strong><label for="roomTypeId"  class="form-label">Id tipo de habitación</label></strong>
+                            <select class="form-select mb-3" th:field="*{roomTypeId}">
+                                <option default >Click aqui para seleccionar una opcion</option>
                                 <option th:each="item: ${listadoTipos}" th:value="${item.id}"
-                                th:text="'Tipo: '+${item.typeName}+' Precio: '+${item.roomPrice}"></option>
+                                th:text="'Tipo: '+${item.typeName}+'| Precio: $'+${item.roomPrice}"></option>
                             </select>
 
-                            <label for="floor"  class="form-label"># de piso</label>
-                            <input required type="text" class="form-control" th:field="*{floor}" id="floor" >
+                            <strong><label for="floor"  class="form-label"># de piso</label></strong>
+                            <input required type="text" class="form-control mb-3" th:field="*{floor}" id="floor" >
 
-                            <label for="statusId"  class="form-label">Id de estado</label>
-                            <select class="form-select" th:field="*{statusId}">
+                            <strong><label for="statusId"  class="form-label">Id de estado</label></strong>
+                            <select class="form-select mb-3" th:field="*{statusId}">
                                 <option th:each="item: ${estados}" th:value="${item.id}"
                                         th:text="'Estado: '+${item.statusName}"></option>
                             </select>
 
-
-                            <label for="description"  class="form-label">descripcion de habitacion</label>
-                            <input required type="text" class="form-control" th:field="*{description}" id="description" placeholder="P.e: Administrador">
+                            <strong><label for="description"  class="form-label">descripcion de habitacion</label></strong>
+                            <input required type="text" class="form-control mb-3" th:field="*{description}" id="description">
                         </div>
 
 

@@ -22,7 +22,7 @@ import java.util.stream.IntStream;
 
 
 @Controller
-@RequestMapping ("/roomType")
+@RequestMapping ("/roomtype")
 public class RoomTypeController {
 
     @Autowired
@@ -43,7 +43,7 @@ public class RoomTypeController {
             List<Integer> pageNumber = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
             model.addAttribute("pageNumbers",pageNumber);
         }
-        return "roomType/Index";
+        return "roomtype/Index";
     }
 
 
@@ -52,17 +52,17 @@ public class RoomTypeController {
         if (result.hasErrors()){
             model.addAttribute(roomType);
             attributes.addFlashAttribute("error", "No se pudo guardar debido a un error.");
-            return "redirect:/roomType";
+            return "redirect:/roomtype";
         }
         roomTypeService.createOrEditOne(roomType);
         attributes.addFlashAttribute("msg", "Grupo creado correctamente.");
-        return "redirect:/roomType";
+        return "redirect:/roomtype";
     }
 
     @GetMapping("/removed/{id}")
     public String remove(@PathVariable("id") Integer id, RedirectAttributes attributes){
         roomTypeService.eliminarPorId(id);
         attributes.addFlashAttribute("msg", "Grupo eliminado corectamente");
-        return "redirect:/roomType";
+        return "redirect:/roomtype";
     }
 }

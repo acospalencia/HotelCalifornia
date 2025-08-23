@@ -22,7 +22,7 @@
             <td th:text="${item.typeName}"></td>
             <td th:text="${item.roomPrice}"></td>
             <td>
-                <a th:href="@{/roomType/removed/{id}(id=${item.id})}" class="btn btn-outline-danger"
+                <a th:href="@{/roomtype/removed/{id}(id=${item.id})}" class="btn btn-outline-danger"
                    onclick="return confirm('¿Seguro que deseas eliminar este tipo de habitación?');">
                     Eliminar
                 </a>
@@ -39,7 +39,7 @@
                     <h1 class="modal-title fs-5" id="modalRoomTypeLabel">Agregar Nuevo Tipo de Habitación</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form th:action="@{/roomType/save}" th:object="${roomType}" method="post">
+                <form th:action="@{/roomtype/save}" th:object="${roomType}" method="post">
                     <div class="modal-body">
 
                         <div class="mb-3">

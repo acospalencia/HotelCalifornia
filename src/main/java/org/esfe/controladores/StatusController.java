@@ -19,18 +19,21 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Controller
-@RequestMapping("/Status")
+@RequestMapping("/status")
 public class StatusController {
     @Autowired
     private IStatusService statusService;
 
+    @GetMapping
     public String index(Status status, Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
         int currentpage = page.orElse(1) - 1;
         int pageSize = size.orElse(5);
         Pageable pageable = (Pageable) PageRequest.of(currentpage, pageSize);
 
-        Page<Status> statu = statusService.buscarTodosPaginados(pageable);
-        int totalPAges = statu.getTotalPages();
+        Page<Status> statuses = statusService.buscarTodosPaginados(pageable);
+        model.addAttribute("statuses", statuses);
+
+        int totalPAges = statuses.getTotalPages();
         if (totalPAges > 0) {
             List<Integer> pageNumber = (List<Integer>) IntStream.rangeClosed(1, totalPAges)
                     .boxed()
@@ -52,11 +55,11 @@ public class StatusController {
         return "redirect:/status";
 
     }
-    @GetMapping("/remove/id")
+    @GetMapping("/remove/{id}")
     public String remove(@PathVariable("id") Integer id, RedirectAttributes attributes){
         statusService.eliminarPorId(id);
         attributes.addFlashAttribute("Grupo eliminado corectamente. ");
-        return "redircet/status";
+        return "redirect:/status";
     }
 
 
