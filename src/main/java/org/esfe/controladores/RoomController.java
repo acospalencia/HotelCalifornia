@@ -82,5 +82,23 @@ public class RoomController {
         return "redirect:/room";
     }
 
+    @GetMapping("/updateStatus/{roomNumber}/{statusId}")
+    public String updateStatus(@PathVariable Integer roomNumber,
+                               @PathVariable Integer statusId,
+                               RedirectAttributes attributes) {
+
+        Room room = roomService.bucarPorId(roomNumber)
+                .orElseThrow(() -> new IllegalArgumentException("No existe la habitación"));
+
+        Status nuevoEstado = new Status();
+        nuevoEstado.setId(statusId);
+        room.setStatusId(nuevoEstado);
+
+        roomService.createOrEditOne(room);
+
+        attributes.addFlashAttribute("msg", "Estado actualizado correctamente");
+        return "redirect:/room";
+    }
+
 
 }

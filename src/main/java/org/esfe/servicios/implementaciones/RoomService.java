@@ -41,4 +41,6 @@ public class RoomService implements IRoomService {
     public void eliminarPorId(Integer room) {
         roomRepository.deleteById(room);
     }
+
+
 }

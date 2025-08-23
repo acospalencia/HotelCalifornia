@@ -17,4 +17,5 @@ public interface IRoomService {
     Room createOrEditOne(Room room);
 
     void eliminarPorId(Integer room);
+
 }
