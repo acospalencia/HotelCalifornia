@@ -3,6 +3,7 @@ package org.esfe.modelos;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "users")
@@ -26,10 +27,10 @@ public class User {
     @NotBlank(message = "La contraseña es requerido")
     private String userPasword;
 
-    @NotBlank(message = "La edad es requerido")
+    @NotNull(message = "La edad es requerido")
     private Integer age;
 
-    @NotBlank(message = "El id del rol es requerido")
+    @NotNull(message = "El id del rol es requerido")
     private Integer rolId;
 
     public Integer getId() {
