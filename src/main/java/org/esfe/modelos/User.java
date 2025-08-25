@@ -3,6 +3,7 @@ package org.esfe.modelos;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -29,14 +30,16 @@ public class User {
     @NotBlank(message = "La contraseña es requerido")
     private String userPasword;
 
-    @NotBlank(message = "La edad es requerido")
+    @NotNull(message = "La edad es requerido")
     private Integer age;
+
 
     @ManyToOne
     @JoinColumn(name = "rol_Id", nullable = false)
     @NotBlank(message = "El id del rol es requerido")
     private Role rol;
     
+
     public Integer getId() {
         return id;
     }
