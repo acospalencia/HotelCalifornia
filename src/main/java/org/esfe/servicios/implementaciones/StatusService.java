@@ -41,4 +41,5 @@ public class StatusService implements IStatusService {
     public void eliminarPorId(Integer status) {
         statusRepository.deleteById(status);
     }
+
 }

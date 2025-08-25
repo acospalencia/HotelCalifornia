@@ -1,0 +1,74 @@
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/_mainLayout">
+
+<div layout:fragment="content">
+
+    <h1>Listado de Tipos de Habitación</h1>
+    <a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRoomType">Nuevo Tipo de Habitación</a>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Precio de habitacion</th>
+            <th>Acción</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item: ${RoomType.content}">
+            <td th:text="${item.id}"></td>
+            <td th:text="${item.typeName}"></td>
+            <td th:text="${item.roomPrice}"></td>
+            <td>
+                <a th:href="@{/roomtype/removed/{id}(id=${item.id})}" class="btn btn-outline-danger"
+                   onclick="return confirm('¿Seguro que deseas eliminar este tipo de habitación?');">
+                    Eliminar
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalRoomType" tabindex="-1" aria-labelledby="modalRoomTypeLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalRoomTypeLabel">Agregar Nuevo Tipo de Habitación</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form th:action="@{/roomtype/save}" th:object="${roomType}" method="post">
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <label for="typeName" class="form-label">Nombre del Tipo de Habitación</label>
+                            <input required type="text" class="form-control" th:field="*{typeName}" id="typeName" placeholder="P.e: Suite, Doble, Individual">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="roomPrice" class="form-label">Precio</label>
+                            <input required type="number" step="1.00" class="form-control" th:field="*{roomPrice}" id="roomPrice" placeholder="P.e: 75.00">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Paginación -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item" th:each="pageNumber: ${pageNumbers}">
+                <a class="page-link" th:href="@{1/roomType(page=${pageNumber})}" th:text="${pageNumber}"></a>
+            </li>
+        </ul>
+    </nav>
+
+</div>

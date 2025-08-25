@@ -1,0 +1,112 @@
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/_mainLayout">
+
+<div layout:fragment="content">
+    <h1>Listado de Habitaciones </h1>
+    <a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Nueva Habitacion</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>N° de habitacion</th>
+            <th>Tipo de habitación</th>
+            <th>N° de piso</th>
+            <th>Estado</th>
+            <th>Descripción</th>
+            <th>Accion</th>
+            <th class="text-center">Estado</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item: ${rooms}">
+            <td th:text="${item.roomNumber}"></td>
+            <td th:text="${item.roomTypeId.typeName}"></td>
+            <td th:text="${item.floor}"></td>
+            <td class="fw-bold estado "  th:text="${item.statusId.statusName}"></td>
+            <td th:text="${item.description}"></td>
+
+
+            <td>
+                <a th:href="@{/room/remove/{roomNumber}(roomNumber=${item.roomNumber})}" class="btn btn-outline-danger"
+                   onclick="return confirm('¿Seguro que deseas eliminar esta habitación?');">
+                    Eliminar
+                </a>
+            </td>
+
+            <td>
+                <a th:href="@{/room/updateStatus/{roomNumber}/{statusId}(roomNumber=${item.roomNumber}, statusId=1)}"
+                   class="btn btn-outline-success">
+                    On
+                </a>
+            </td>
+
+            <td>
+                <a th:href="@{/room/updateStatus/{roomNumber}/{statusId}(roomNumber=${item.roomNumber}, statusId=2)}"
+                   class="btn btn-outline-secondary">
+                    Off
+                </a>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+
+
+    <!-- Modal -->
+    <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar nueva Habitacion</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form th:action="@{/room/save}" th:object="${room}" method="post">
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <strong><label for="roomTypeId" class="form-label">Id tipo de habitación</label></strong>
+                            <select required class="form-select mb-3" th:field="*{roomTypeId}">
+                                <option value="" disabled selected>Click aqui para seleccionar una opcion</option>
+                                <option th:each="item: ${listadoTipos}" th:value="${item.id}"
+                                        th:text="'Tipo: '+${item.typeName}+' | Precio: $'+${item.roomPrice}"></option>
+                            </select>
+
+                            <strong><label for="floor" class="form-label"># de piso</label></strong>
+                            <input required type="text" class="form-control mb-3" th:field="*{floor}" id="floor">
+
+                            <strong><label for="statusId" class="form-label">Id de estado</label></strong>
+                            <select required class="form-select mb-3" th:field="*{statusId}">
+                                <option th:value="0" disabled selected>Click aqui para seleccionar una opcion</option>
+                                <option th:each="item: ${estados}" th:value="${item.id}"
+                                        th:text="'Estado: '+${item.statusName}"></option>
+                            </select>
+
+                            <strong><label for="description" class="form-label">descripcion de
+                                habitacion</label></strong>
+                            <input required type="text" class="form-control mb-3" th:field="*{description}"
+                                   id="description">
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item" th:each="pageNumber: ${pageNumbers}">
+                <a class="page-link" th:href="@{1/roles?page=${pageNumber}}" th:text="${pageNumber}"></a>
+            </li>
+        </ul>
+    </nav>
+    <script th:src="@{js/Room.js}"></script>
+</div>
+

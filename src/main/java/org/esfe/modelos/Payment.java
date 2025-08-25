@@ -2,6 +2,7 @@ package org.esfe.modelos;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -12,12 +13,13 @@ import java.util.Date;
 
 public class Payment {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message ="El id de la reservacion es requerido")
-    public Integer reservationId;
+    @NotNull(message ="El id de la reservacion es requerido")
+    public Integer cantidadPagada;
 
     @NotBlank(message = "La fecha de pago es requerida")
     public Date payDate;
@@ -30,12 +32,12 @@ public class Payment {
         this.id = id;
     }
 
-    public Integer getReservationId() {
-        return reservationId;
+    public Integer getCantidadPagada() {
+        return cantidadPagada;
     }
 
-    public void setReservationId(Integer reservationId) {
-        this.reservationId = reservationId;
+    public void setCantidadPagada(Integer cantidadPagada) {
+        this.cantidadPagada = cantidadPagada;
     }
 
     public Date getPayDate() {
@@ -45,4 +47,6 @@ public class Payment {
     public void setPayDate(Date payDate) {
         this.payDate = payDate;
     }
+
+
 }

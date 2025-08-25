@@ -5,6 +5,9 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "users")
 
@@ -30,8 +33,12 @@ public class User {
     @NotNull(message = "La edad es requerido")
     private Integer age;
 
-    @NotNull(message = "El id del rol es requerido")
-    private Integer rolId;
+
+    @ManyToOne
+    @JoinColumn(name = "rol_Id", nullable = false)
+    @NotBlank(message = "El id del rol es requerido")
+    private Role rol;
+    
 
     public Integer getId() {
         return id;
@@ -81,11 +88,11 @@ public class User {
         this.age = age;
     }
 
-    public Integer getRolId() {
-        return rolId;
+    public Role getRol() {
+        return rol;
     }
 
-    public void setRolId(Integer rolId) {
-        this.rolId = rolId;
+    public void setRol(Role rol) {
+        this.rol = rol;
     }
 }
