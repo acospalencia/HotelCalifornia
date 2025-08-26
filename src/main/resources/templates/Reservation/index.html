@@ -5,52 +5,100 @@
 </head>
 
 <div layout:fragment="content">
-  <div class="row mt-5">
-    <div class="col-sm-12 col-md-12 col-lg-6 border border-5 text-center">
-      <h3>Seleccionar piso</h3>
+  <div class="row border border-2 border-color border-black rounded mt-5">
+    <div class="col-sm-12 col-md-12 col-lg-5 text-center ">
+      <h3 class="mt-4">Seleccionar piso</h3>
       <div class="d-flex justify-content-center">
         <img data-floor="4" th:src="@{assets/pisosPorFuera.png}"
-          class="piso-img img-fluid w-50 rounded-top border border-2 border-dark border-bottom-0 cursor-pointer"
+          class="piso-img img-fluid w-75 rounded-top border border-2 border-dark border-bottom-0 cursor-pointer"
           data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Piso #4" />
       </div>
       <div class="d-flex justify-content-center">
         <img data-floor="3" th:src="@{assets/pisosPorFuera.png}"
-          class="piso-img img-fluid w-50 border-start border-end border border-2 border-dark cursor-pointer"
+          class="piso-img img-fluid w-75 border-start border-end border border-2 border-dark cursor-pointer"
           data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Piso #3" />
       </div>
       <div class="d-flex justify-content-center">
         <img data-floor="2" th:src="@{assets/pisosPorFuera.png}"
-          class="piso-img img-fluid w-50 border-start border-end border border-2 border-dark cursor-pointer"
+          class="piso-img img-fluid w-75 border-start border-end border border-2 border-dark cursor-pointer"
           data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Piso #2" />
       </div>
       <div class="d-flex justify-content-center">
         <img data-floor="1" th:src="@{assets/pisosPorFuera.png}"
-          class="piso-img img-fluid w-50 border-start border-end border border-2 border-dark cursor-pointer"
+          class="piso-img img-fluid w-75 border-start border-end border border-2 border-dark cursor-pointer"
           data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Piso #1" />
       </div>
       <div class="d-flex justify-content-center">
         <img th:src="@{assets/PisoPuerta.png}"
-          class="img-fluid w-50 border-start border-end border border-2 border-dark" data-bs-toggle="tooltip"
+          class="img-fluid w-75 border-start border-end border border-2 border-dark" data-bs-toggle="tooltip"
           data-bs-placement="left" data-bs-title="Entrada Principal" />
       </div>
     </div>
-    <div class="col-sm-12 col-md-12 col-lg-6 border border-5 text-center">
+
+
+    <div class="col-sm-12 col-md-12 col-lg-7  text-center">
       <div id="rooms-container" class="row mt-4">
-        <h3 id="txt-tema">Selecciona la habitación</h3>
+        <h3 id="txt-tema"></h3>
         <div th:each="room : ${rooms}" th:attr="data-floor=${room.floor}" class="col-md-4 mb-3 room-card">
           <div class="card p-3">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door"
-              viewBox="0 0 16 16">
-              <path
-                d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z" />
-            </svg>
-            <h5 th:text="${room.roomTypeId.typeName}"></h5>
-            <p><strong>Piso:</strong> <span th:text="${room.floor}"></span></p>
+            <div class="row">
+              <div class="col-12">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
+                  class="bi bi-house-door" viewBox="0 0 16 16">
+                  <path
+                    d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z" />
+                </svg>
+                <p th:text="${room.roomType}"></p>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary reserve-btn" data-bs-toggle="modal" data-bs-target="#roomModal"
+              th:data-room-id="${room.id}" th:data-room-number="${room.roomNumber}" th:data-room-type="${room.roomType}"
+              th:data-floor="${room.floor}" th:data-status="${room.status}" th:data-description="${room.description}"
+              th:data-images="${room.imagesJson}">
+              Reservar
+            </button>
+
+
+
           </div>
         </div>
       </div>
-
     </div>
   </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="roomModal" tabindex="-1" aria-labelledby="roomModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="roomModalLabel">Habitación</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Aquí se llenará dinámicamente con JS -->
+          <div id="modalImages" class="d-flex mb-3"></div>
+          <div id="modalInfo" class="mb-3"></div>
+
+          <form id="reservationForm" th:action="@{/reservation/save}" method="post">
+            <input type="hidden" name="roomId" id="formRoomId">
+            <div class="mb-3">
+              <label for="checkInDate" class="form-label">Fecha de Entrada</label>
+              <input type="date" name="checkInDate" id="checkInDate" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label for="checkOutDate" class="form-label">Fecha de Salida</label>
+              <input type="date" name="checkOutDate" id="checkOutDate" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label for="amountPaid" class="form-label">Monto a Pagar</label>
+              <input type="number" name="amountPaid" id="amountPaid" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-success">Reservar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 </div>

@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -30,6 +31,17 @@ public class Room {
 
     @NotBlank(message = "La descripcion de la habitacion es requerida")
     private String description;
+
+    public List<RoomImage> getImages() {
+        return images;
+    }
+
+    public void setImages(List<RoomImage> images) {
+        this.images = images;
+    }
+
+    @OneToMany(mappedBy = "room_Id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<RoomImage> images;
 
     public Integer getRoomNumber() {
         return roomNumber;

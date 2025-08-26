@@ -42,5 +42,9 @@ public class RoomService implements IRoomService {
         roomRepository.deleteById(room);
     }
 
+    @Override
+    public List<Room> obtenerTodosConImagenes() {
+        return roomRepository.findAllWithImages();
+    }
 
 }
