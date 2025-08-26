@@ -1,36 +1,54 @@
-<html lang="en"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="/layouts/_mainLayout">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="/layouts/_mainLayout">
+
 <head>
   <title layout:fragment="title">Realiza tu reservacion</title>
 </head>
 
 <div layout:fragment="content">
   <div class="row mt-5">
-    <div class="col-sm-12 col-md-6 col-lg-6 border border-5 text-center">
+    <div class="col-sm-12 col-md-12 col-lg-6 border border-5 text-center">
       <h3>Seleccionar piso</h3>
       <div class="d-flex justify-content-center">
-        <img th:src="@{assets/pisosPorFuera.png}" class="img-fluid w-50 rounded-top border border-2 border-dark border-bottom-0 cursor-pointer"
-             data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Piso #4"/>
+        <img data-floor="4" th:src="@{assets/pisosPorFuera.png}"
+          class="piso-img img-fluid w-50 rounded-top border border-2 border-dark border-bottom-0 cursor-pointer"
+          data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Piso #4" />
       </div>
       <div class="d-flex justify-content-center">
-        <img th:src="@{assets/pisosPorFuera.png}" class="img-fluid w-50 border-start border-end border border-2 border-dark cursor-pointer"
-             data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Piso #3"/>
+        <img data-floor="3" th:src="@{assets/pisosPorFuera.png}"
+          class="piso-img img-fluid w-50 border-start border-end border border-2 border-dark cursor-pointer"
+          data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Piso #3" />
       </div>
       <div class="d-flex justify-content-center">
-        <img th:src="@{assets/pisosPorFuera.png}" class="img-fluid w-50 border-start border-end border border-2 border-dark cursor-pointer"
-             data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Piso #2"/>
+        <img data-floor="2" th:src="@{assets/pisosPorFuera.png}"
+          class="piso-img img-fluid w-50 border-start border-end border border-2 border-dark cursor-pointer"
+          data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Piso #2" />
       </div>
       <div class="d-flex justify-content-center">
-        <img th:src="@{assets/pisosPorFuera.png}" class="img-fluid w-50 border-start border-end border border-2 border-dark cursor-pointer"
-             data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Piso #1"/>
+        <img data-floor="1" th:src="@{assets/pisosPorFuera.png}"
+          class="piso-img img-fluid w-50 border-start border-end border border-2 border-dark cursor-pointer"
+          data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Piso #1" />
       </div>
       <div class="d-flex justify-content-center">
-        <img th:src="@{assets/PisoPuerta.png}" class="img-fluid w-50 border-start border-end border border-2 border-dark"
-        data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Entrada Principal"/>
+        <img th:src="@{assets/PisoPuerta.png}"
+          class="img-fluid w-50 border-start border-end border border-2 border-dark" data-bs-toggle="tooltip"
+          data-bs-placement="left" data-bs-title="Entrada Principal" />
       </div>
     </div>
-    <div class="col-sm-12 col-md-12 col-lg-6 border border-5">
+    <div class="col-sm-12 col-md-12 col-lg-6 border border-5 text-center">
+      <div id="rooms-container" class="row mt-4">
+        <h3 id="txt-tema">Selecciona la habitación</h3>
+        <div th:each="room : ${rooms}" th:attr="data-floor=${room.floor}" class="col-md-4 mb-3 room-card">
+          <div class="card p-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door"
+              viewBox="0 0 16 16">
+              <path
+                d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z" />
+            </svg>
+            <h5 th:text="${room.roomTypeId.typeName}"></h5>
+            <p><strong>Piso:</strong> <span th:text="${room.floor}"></span></p>
+          </div>
+        </div>
+      </div>
 
     </div>
   </div>

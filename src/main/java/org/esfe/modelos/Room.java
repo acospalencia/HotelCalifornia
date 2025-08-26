@@ -20,8 +20,8 @@ public class Room {
     @NotNull(message = "El id del tipo de habitacion es requerido")
     private RoomType roomTypeId ;
 
-    @NotBlank(message = "El numero de piso es requerido")
-    private String floor;
+    @NotNull(message = "El numero de piso es requerido")
+    private Integer floor;
 
     @ManyToOne
     @JoinColumn(name = "statusId", nullable = false)
@@ -47,11 +47,11 @@ public class Room {
         this.roomTypeId = roomTypeId;
     }
 
-    public String getFloor() {
+    public Integer getFloor() {
         return floor;
     }
 
-    public void setFloor(String floor) {
+    public void setFloor(Integer floor) {
         this.floor = floor;
     }
 
