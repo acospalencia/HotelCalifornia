@@ -27,7 +27,6 @@ public class ReservationController {
     @Autowired
     private IRoomService roomService;
 
-
     @GetMapping
     public String Index(Reservation reservation, Model model) throws Exception {
         List<Room> roomList = roomService.obtenerTodosConImagenes();
@@ -42,16 +41,16 @@ public class ReservationController {
             r.put("description", room.getDescription());
             r.put("id", room.getRoomNumber());
 
-            // Convertir imágenes a Base64
+
             List<String> imagesBase64 = room.getImages().stream()
                     .map(img -> Base64.getEncoder().encodeToString(img.getBytesArrayImage()))
                     .collect(Collectors.toList());
 
             try {
-                // Convertir lista de Base64 a JSON
+
                 r.put("imagesJson", mapper.writeValueAsString(imagesBase64));
             } catch (Exception e) {
-                r.put("imagesJson", "[]"); // fallback
+                r.put("imagesJson", "[]");
             }
 
             return r;

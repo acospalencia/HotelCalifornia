@@ -1,0 +1,49 @@
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/_mainLayout">
+
+<div layout:fragment="content">
+
+    <h1>Editar Usuario</h1>
+
+    <form th:action="@{/user/save}" th:object="${user}" method="post">
+        <input type="hidden" th:field="*{id}"/>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="firstName" class="form-label">Nombre</label>
+                <input required type="text" class="form-control" th:field="*{firstName}" id="firstName">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="lastName" class="form-label">Apellido</label>
+                <input required type="text" class="form-control" th:field="*{lastName}" id="lastName">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input required type="email" class="form-control" th:field="*{email}" id="email">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="userPasword" class="form-label">Contraseña</label>
+                <input required type="password" class="form-control" th:field="*{userPasword}" id="userPasword">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="age" class="form-label">Edad</label>
+                <input required type="number" class="form-control" th:field="*{age}" id="age">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="rolId" class="form-label">Rol ID</label>
+                <input required type="number" class="form-control" th:field="*{rolId}" id="rolId">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+        <a th:href="@{/user}" class="btn btn-secondary">Cancelar</a>
+    </form>
+
+</div>

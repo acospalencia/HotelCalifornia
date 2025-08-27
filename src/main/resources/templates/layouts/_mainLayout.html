@@ -101,10 +101,14 @@
         <a class="navbar-brand fw-bold" href="/">
             <i class="fas fa-hotel me-2"></i>Hotel California
         </a>
+<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">">
+    <div class="container-fluid ">
+        <a class="navbar-brand" href="/">Hotel California</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -128,16 +132,57 @@
                         <li><a class="dropdown-item" href="/roomtype">Tipos de habitaciones</a></li>
                         <li><a class="dropdown-item" href="/status">Estados</a></li>
                     </ul>
+        <div class="collapse navbar-collapse d-flex justify-content-center " id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Inicio</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/reservation">Hacer reservacion</a>
+                </li>
+                <div sec:authorize="hasAnyAuthority('Administrador')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            Administrar
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/role">Roles</a></li>
+                            <li><a class="dropdown-item" href="/room">Habitaciones</a></li>
+                            <li><a class="dropdown-item" href="/roomimage">Imagen de habitaciones</a></li>
+                            <li><a class="dropdown-item" href="/roomtype">Tipos de habitaciones</a></li>
+                            <li><a class="dropdown-item" href="/status">Estados</a></li>
+                        </ul>
+                    </li>
+                </div>
             </ul>
+
+        </div>
+        <div class="d-flex justify-content-end">
+            <div sec:authorize="isAnonymous()">
+                <a class="btn btn-outline-primary text-white mx-2 " th:href="@{/login}">Iniciar Sesión</a>
+            </div>
+            <div sec:authorize="isAuthenticated()">
+
+                <a class="btn btn-outline-primary text-white mx-2" th:href="@{/logout}">
+                   <span th:if="${usuarioActual != null}"
+                         th:text="${usuarioActual.firstName} + ' ' + ${usuarioActual.lastName}"></span>
+                    Cerrar Sesion
+                </a>
+            </div>
         </div>
     </div>
 </nav>
 
-<div class="content-wrapper">
-    <!-- Contenido específico de cada página -->
-    <div layout:fragment="content"></div>
-</div>
+<!-- Main content area -->
+<main class="flex-fill">
+    <div class="container ">
+        <div layout:fragment="content">
+            <p>*******Cambiando contenidos********</p>
+        </div>
+    </div>
+</main>
+
 
 <!-- Footer consistente en todas las páginas -->
 <footer class="footer text-center">

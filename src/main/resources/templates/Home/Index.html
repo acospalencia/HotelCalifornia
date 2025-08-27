@@ -17,6 +17,15 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
+<div layout:fragment="content">
+    <div th:if="${usuarioActual != null}" class="text-center">
+        <p>Bienvenido, <span th:text="${usuarioActual.firstName} + ' ' + ${usuarioActual.lastName}"></span></p>
+    </div>
+    <div th:if="${usuarioActual == null}" class="alert alert-danger text-center" role="alert">
+        <p>No has iniciado sesión</p>
+    </div>
+
+
         .navbar-brand {
             font-weight: 700;
             color: #d4af37 !important;
