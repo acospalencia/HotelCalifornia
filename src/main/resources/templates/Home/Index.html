@@ -3,7 +3,13 @@
     layout:decorate="/layouts/_mainLayout">
 
 <div layout:fragment="content">
-    <h1 class="text-center">prueba de layout</h1>
+    <div th:if="${usuarioActual != null}" class="text-center">
+        <p>Bienvenido, <span th:text="${usuarioActual.firstName} + ' ' + ${usuarioActual.lastName}"></span></p>
+    </div>
+    <div th:if="${usuarioActual == null}" class="alert alert-danger text-center" role="alert">
+        <p>No has iniciado sesión</p>
+    </div>
+
 
 
 </div>

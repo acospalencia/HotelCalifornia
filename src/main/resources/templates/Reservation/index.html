@@ -5,7 +5,7 @@
 </head>
 
 <div layout:fragment="content">
-  <div class="row border border-2 border-color border-black rounded mt-5">
+  <div class="row border border-2 border-color border-black rounded mt-5 pb-5">
     <div class="col-sm-12 col-md-12 col-lg-5 text-center ">
       <h3 class="mt-4">Seleccionar piso</h3>
       <div class="d-flex justify-content-center">
@@ -75,23 +75,29 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <!-- Aquí se llenará dinámicamente con JS -->
-          <div id="modalImages" class="d-flex mb-3"></div>
-          <div id="modalInfo" class="mb-3"></div>
+          <div class="row">
+            <div id="modalImages" class="d-flex mb-3 col-4"></div>
+          </div>
 
-          <form id="reservationForm" th:action="@{/reservation/save}" method="post">
+          <div id="modalInfo" class="mb-3 fs-5"></div>
+
+          <form id="reservationForm" th:action="@{/reservation/save}" th:object="${reservation}" method="post">
             <input type="hidden" name="roomId" id="formRoomId">
             <div class="mb-3">
               <label for="checkInDate" class="form-label">Fecha de Entrada</label>
-              <input type="date" name="checkInDate" id="checkInDate" class="form-control" required>
+              <input type="date" class="form-control" id="checkInDate" name="checkInDate" th:field="*{checkInDate}">
             </div>
             <div class="mb-3">
               <label for="checkOutDate" class="form-label">Fecha de Salida</label>
-              <input type="date" name="checkOutDate" id="checkOutDate" class="form-control" required>
+              <input type="date" class="form-control" id="checkOutDate" name="checkOutDate" th:field="*{checkOutDate}">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Noches a Reservar</label>
+              <input type="text" id="nightsCount" class="form-control" readonly>
             </div>
             <div class="mb-3">
               <label for="amountPaid" class="form-label">Monto a Pagar</label>
-              <input type="number" name="amountPaid" id="amountPaid" class="form-control" required>
+              <input type="number" name="amountPaid" id="amountPaid" class="form-control" readonly>
             </div>
             <button type="submit" class="btn btn-success">Reservar</button>
           </form>
