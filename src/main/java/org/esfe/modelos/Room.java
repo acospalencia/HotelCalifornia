@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -20,8 +21,8 @@ public class Room {
     @NotNull(message = "El id del tipo de habitacion es requerido")
     private RoomType roomTypeId ;
 
-    @NotBlank(message = "El numero de piso es requerido")
-    private String floor;
+    @NotNull(message = "El numero de piso es requerido")
+    private Integer floor;
 
     @ManyToOne
     @JoinColumn(name = "statusId", nullable = false)
@@ -30,6 +31,17 @@ public class Room {
 
     @NotBlank(message = "La descripcion de la habitacion es requerida")
     private String description;
+
+    public List<RoomImage> getImages() {
+        return images;
+    }
+
+    public void setImages(List<RoomImage> images) {
+        this.images = images;
+    }
+
+    @OneToMany(mappedBy = "room_Id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<RoomImage> images;
 
     public Integer getRoomNumber() {
         return roomNumber;
@@ -47,11 +59,11 @@ public class Room {
         this.roomTypeId = roomTypeId;
     }
 
-    public String getFloor() {
+    public Integer getFloor() {
         return floor;
     }
 
-    public void setFloor(String floor) {
+    public void setFloor(Integer floor) {
         this.floor = floor;
     }
 

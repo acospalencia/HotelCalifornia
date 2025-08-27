@@ -18,4 +18,6 @@ public interface IUserService {
     User createOrEditOne(User user);
 
     void eliminarPorId(Integer role);
+
+    Optional<User> buscarPorEmail(String email);
 }

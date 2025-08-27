@@ -3,6 +3,7 @@ package org.esfe.servicios.interfaces;
 import org.esfe.modelos.Room;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,4 +19,5 @@ public interface IRoomService {
 
     void eliminarPorId(Integer room);
 
+    List<Room> obtenerTodosConImagenes();
 }
