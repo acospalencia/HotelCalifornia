@@ -1,40 +1,118 @@
 <!DOCTYPE html>
-<html lang="es"
-
-      xmlns:th="http://www.thymeleaf.org"
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title layout:fragment="title">layout</title>
+    <title layout:title="${title}">Hotel California</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        :root {
+            --color-gold: #d4af37;
+            --color-dark: #343a40;
+            --color-light: #f8f9fa;
+        }
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-    <link rel="stylesheet" th:href="@{css/style.css}">
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .content-wrapper {
+            flex: 1;
+        }
+
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--color-gold) !important;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--color-gold) !important;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--color-gold);
+            color: white;
+        }
+
+        .footer {
+            background-color: var(--color-dark);
+            color: white;
+            padding: 30px 0;
+            margin-top: auto;
+        }
+
+        .footer a {
+            color: var(--color-gold);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .btn-gold {
+            background-color: var(--color-gold);
+            border-color: var(--color-gold);
+            color: white;
+            font-weight: 600;
+        }
+
+        .btn-gold:hover {
+            background-color: #b8941f;
+            border-color: #b8941f;
+            color: white;
+        }
+
+        .page-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                        url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=400&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 60px 0;
+            color: white;
+            border-radius: 10px;
+            margin: 20px 0 40px 0;
+        }
+    </style>
 </head>
-
-<body class="d-flex flex-column min-vh-100">
-
-<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">Hotel California</a>
+<body>
+<!-- Navbar consistente en todas las páginas -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="/">
+            <i class="fas fa-hotel me-2"></i>Hotel California
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Inicio</a>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/role">Roles</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/room">Habitaciones</a>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link" href="/reservation">Reservaciones</a>
                 </li>
@@ -56,34 +134,31 @@
     </div>
 </nav>
 
-<!-- Main content area -->
-<main class="flex-fill" >
-    <div class="container ">
-        <div layout:fragment="content">
-            <p>*******Cambiando contenidos********</p>
+<div class="content-wrapper">
+    <!-- Contenido específico de cada página -->
+    <div layout:fragment="content"></div>
+</div>
+
+<!-- Footer consistente en todas las páginas -->
+<footer class="footer text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mb-3 mb-md-0">
+                <h5 class="text-gold">Hotel California</h5>
+                <p>Elegancia y comodidad para crear experiencias inolvidables.</p>
+            </div>
+            <div class="col-md-6">
+                <h5 class="text-gold">Enlaces rápidos</h5>
+                <a href="#" class="me-3">Política de Privacidad</a> |
+                <a href="#" class="ms-3">Términos de Servicio</a>
+            </div>
         </div>
-    </div>
-</main>
-
-
-<footer class=" bg-secondary text-white mt-5">
-    <div class="text-center p-3">
-        © 2025 Hotel California
-        <a class="text-white" href="#">Privacy Policy</a> |
-        <a class="text-white" href="#">Terms of Service</a>
+        <hr class="my-4 bg-light">
+        <p>&copy; 2025 Hotel California. Todos los derechos reservados.</p>
     </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
-        crossorigin="anonymous"></script>
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    let roomsData = [[${rooms}]];
-    /*]]>*/
-</script>
-<script th:src="@{js/style.js}"></script>
-<script th:src="@{js/Reservation.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/style.js}"></script>
 </body>
-
 </html>
