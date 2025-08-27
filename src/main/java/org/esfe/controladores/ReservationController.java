@@ -41,7 +41,6 @@ public class ReservationController {
             r.put("description", room.getDescription());
             r.put("id", room.getRoomNumber());
 
-
             List<String> imagesBase64 = room.getImages().stream()
                     .map(img -> Base64.getEncoder().encodeToString(img.getBytesArrayImage()))
                     .collect(Collectors.toList());

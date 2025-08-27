@@ -18,18 +18,15 @@ public class DataBaseWebSecurity {
 
     private final CustomUserDetailsService userDetailsService;
 
-    // ✅ Un solo constructor (quita cualquier otro que tuvieras)
     public DataBaseWebSecurity(CustomUserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
-    // 🔐 SIN hash (texto plano). No uses {noop} en SQL ni en BD si activas este bean.
     @Bean
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
 
-    // 📦 Provider con tu UserDetailsService
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider(PasswordEncoder encoder) {
         DaoAuthenticationProvider p = new DaoAuthenticationProvider();
@@ -38,7 +35,6 @@ public class DataBaseWebSecurity {
         return p;
     }
 
-    // 🔌 AuthenticationManager moderno (sin .and())
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();

@@ -37,7 +37,7 @@ public class RoomImageController {
     public String Index(RoomImage roomImage, Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
 
         int currentPage = page.orElse(1) - 1;
-        int pageSize = size.orElse(5);
+        int pageSize = size.orElse(36);
         Pageable pageable = PageRequest.of(currentPage, pageSize);
 
         Page<RoomImage> roomImages = imageService.buscarTodosPaginados(pageable);

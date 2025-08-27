@@ -163,17 +163,11 @@
                             <td th:text="${item.roomNumber}"></td>
                             <td>
                                 <span th:text="${item.roomTypeId.typeName}"></span>
-                                <small class="d-block text-muted" th:text="'$' + ${item.roomTypeId.roomPrice} + '/noche'"></small>
+                                <small class="d-block text-muted"
+                                       th:text="'$' + ${item.roomTypeId.roomPrice} + '/noche'"></small>
                             </td>
                             <td th:text="${item.floor}"></td>
-                            <td>
-                                <span th:if="${item.statusId.statusName == 'DISPONIBLE'}"
-                                      class="status-badge status-available" th:text="${item.statusId.statusName}"></span>
-                                <span th:if="${item.statusId.statusName == 'OCUPADA'}"
-                                      class="status-badge status-occupied" th:text="${item.statusId.statusName}"></span>
-                                <span th:if="${item.statusId.statusName == 'MANTENIMIENTO'}"
-                                      class="status-badge status-maintenance" th:text="${item.statusId.statusName}"></span>
-                            </td>
+                            <td class="fw-bold estado " th:text="${item.statusId.statusName}"></td>
                             <td>
                                 <span th:text="${item.description} ?: 'Sin descripción'"></span>
                             </td>
@@ -201,7 +195,8 @@
                                     <i class="fas fa-bed"></i>
                                     <h4>No hay habitaciones registradas</h4>
                                     <p>Comienza agregando una nueva habitación al sistema.</p>
-                                    <button type="button" class="btn btn-gold mt-2" data-bs-toggle="modal" data-bs-target="#roomModal">
+                                    <button type="button" class="btn btn-gold mt-2" data-bs-toggle="modal"
+                                            data-bs-target="#roomModal">
                                         <i class="fas fa-plus-circle me-2"></i>Crear primera habitación
                                     </button>
                                 </div>
@@ -214,29 +209,9 @@
                 <!-- Paginación -->
                 <nav aria-label="Page navigation" class="mt-4" th:if="${rooms.totalPages > 1}">
                     <ul class="pagination justify-content-center">
-                        <li class="page-item" th:classappend="${rooms.first} ? 'disabled'">
-                            <a class="page-link" th:href="@{/room?page=0}" aria-label="Primera">
-                                <span aria-hidden="true">&laquo;&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item" th:classappend="${rooms.first} ? 'disabled'">
-                            <a class="page-link" th:href="@{/room?page=${rooms.number - 1}}" aria-label="Anterior">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item" th:each="i : ${#numbers.sequence(0, rooms.totalPages - 1)}"
+                        <li class="page-item" th:each="pageNumber: ${pageNumbers}"
                             th:classappend="${i == rooms.number} ? 'active'">
-                            <a class="page-link" th:href="@{/room?page=${i}}" th:text="${i + 1}"></a>
-                        </li>
-                        <li class="page-item" th:classappend="${rooms.last} ? 'disabled'">
-                            <a class="page-link" th:href="@{/room?page=${rooms.number + 1}}" aria-label="Siguiente">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item" th:classappend="${rooms.last} ? 'disabled'">
-                            <a class="page-link" th:href="@{/room?page=${rooms.totalPages - 1}}" aria-label="Última">
-                                <span aria-hidden="true">&raquo;&raquo;</span>
-                            </a>
+                            <a class="page-link" th:href="@{/room(page=${pageNumber})}" th:text="${pageNumber}"></a>
                         </li>
                     </ul>
                 </nav>
@@ -268,7 +243,8 @@
 
                         <div class="mb-3">
                             <label for="floor" class="form-label fw-semibold">Número de Piso</label>
-                            <input required type="number" min="1" max="10" class="form-control" th:field="*{floor}" id="floor"
+                            <input required type="number" min="1" max="10" class="form-control" th:field="*{floor}"
+                                   id="floor"
                                    placeholder="Ej: 1, 2, 3...">
                         </div>
 
@@ -299,5 +275,5 @@
             </div>
         </div>
     </div>
-
+    <script th:src="@{js/Room.js}"></script>
 </div>

@@ -37,7 +37,7 @@ public class RoomController {
     public String Index(Room room, Model model, @RequestParam("page")Optional<Integer> page, @RequestParam("size")Optional<Integer> size){
 
         int currentPage = page.orElse(1)-1;
-        int pageSize = size.orElse(5);
+        int pageSize = size.orElse(12);
         Pageable pageable = PageRequest.of(currentPage, pageSize);
 
 

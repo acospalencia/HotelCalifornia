@@ -158,7 +158,7 @@
         <nav aria-label="Page navigation" class="mt-4" th:if="${pageNumbers != null}">
             <ul class="pagination justify-content-center">
                 <li class="page-item" th:each="pageNumber: ${pageNumbers}">
-                    <a class="page-link" th:href="@{/roomimage?page=${pageNumber}}" th:text="${pageNumber}"></a>
+                    <a class="page-link" th:href="@{/roomimage(page=${pageNumber})}" th:text="${pageNumber}"></a>
                 </li>
             </ul>
         </nav>
