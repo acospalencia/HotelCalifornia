@@ -1,74 +1,167 @@
-<html lang="en"
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="/layouts/_mainLayout">
+      layout:decorate="~{layouts/_mainLayout}">
+
+<head>
+    <title layout:fragment="title">Imágenes de Habitaciones | Hotel California</title>
+    <style>
+        .page-header {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                        url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=400&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 60px 0;
+            color: white;
+            border-radius: 10px;
+            margin: 20px 0 40px 0;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .card-img-top {
+            object-fit: cover;
+            height: 200px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .btn-gold {
+            background-color: #d4af37;
+            border-color: #d4af37;
+            color: white;
+            font-weight: 500;
+        }
+
+        .btn-gold:hover {
+            background-color: #b8941f;
+            border-color: #b8941f;
+            color: white;
+        }
+
+        .modal-header {
+            background-color: #d4af37;
+            color: white;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6c757d;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #dee2e6;
+        }
+    </style>
+</head>
 
 <div layout:fragment="content">
 
-
-    <h1>Listado de imagenes de habitaciones </h1>
-    <a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Nueva imagen</a>
-
-    <div class="row">
-        <div th:each="item: ${roomimages}" class="card col-lg-3 mx-2 my-2" style="width: 16rem; heigth: 36rem">
-            <img th:if="${item.base64Image != null}"
-                 th:src="'data:image/png;base64,' + ${item.base64Image}"
-                 alt="Imagen habitación" style="width:14em;height:14em;"/>
-            <div class="card-body   ">
-                <strong class="card-title" th:text="'Imagen de habitación: ' + ${item.roomId.roomNumber}"></strong>
-                <div class="d-flex justify-content-center">
-                    <a th:href="@{/roomimage/remove/{id}(id=${item.id})}" class="btn btn-outline-danger"
-                       onclick="return confirm('¿Seguro que deseas eliminar este role?');">
-                        Eliminar
-                    </a>
-                </div>
-            </div>
+    <!-- Encabezado -->
+    <div class="page-header text-center">
+        <div class="container">
+            <h1 class="display-5 fw-bold">Imágenes de Habitaciones 🖼️</h1>
+            <p class="lead mb-0">Administra las imágenes de las habitaciones del Hotel California</p>
         </div>
     </div>
 
+    <div class="container">
 
-    <!-- Modal -->
-    <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar nueva imagen</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="h4 mb-0">Listado de Imágenes</h2>
+            <button type="button" class="btn btn-gold" data-bs-toggle="modal" data-bs-target="#imageModal">
+                <i class="fas fa-plus-circle me-2"></i>Nueva Imagen
+            </button>
+        </div>
+
+        <div class="row g-3">
+            <div th:each="item: ${roomimages}" class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card h-100">
+                    <img th:if="${item.base64Image != null}"
+                         th:src="'data:image/png;base64,' + ${item.base64Image}"
+                         class="card-img-top" alt="Imagen habitación">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <h5 class="card-title mb-3" th:text="'Habitación #' + ${item.roomId.roomNumber}"></h5>
+                        <a th:href="@{/roomimage/remove/{id}(id=${item.id})}" class="btn btn-outline-danger btn-sm mt-auto"
+                           onclick="return confirm('¿Seguro que deseas eliminar esta imagen?');">
+                            Eliminar
+                        </a>
+                    </div>
                 </div>
-                <form th:action="@{/roomimage/save}" th:object="${roomImage}" method="post"
-                      enctype="multipart/form-data">
-                    <div class="modal-body">
+            </div>
+            <div th:if="${#lists.isEmpty(roomimages)}" class="col-12">
+                <div class="empty-state">
+                    <i class="fas fa-image"></i>
+                    <h4>No hay imágenes registradas</h4>
+                    <p>Agrega imágenes para que los clientes vean las habitaciones disponibles.</p>
+                    <button type="button" class="btn btn-gold mt-2" data-bs-toggle="modal" data-bs-target="#imageModal">
+                        <i class="fas fa-plus-circle me-2"></i>Agregar Imagen
+                    </button>
+                </div>
+            </div>
+        </div>
 
-                        <div class="mb-3">
-                            <label for="room_Id" class="form-label">Id de la habitacion</label>
-
-                            <select class="form-select" th:field="*{room_Id}">
-                                <option th:each="item: ${ListadoRooms}"  th:value="${item.roomNumber}"
-                                        th:text="'Habitacion #' + ${item.roomNumber} + ' descripcion: ' + ${item.description}" ></option>
-                            </select>
-
-                            <label for="bytesArrayImage" class="form-label">Imagen de la habitacion</label>
-
-                            <input required type="file" name="imagenFile" id="bytesArrayImage">
-
+        <!-- Modal para agregar imagen -->
+        <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="imageModalLabel">
+                            <i class="fas fa-plus-circle me-2"></i>Agregar Nueva Imagen
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <form th:action="@{/roomimage/save}" th:object="${roomImage}" method="post" enctype="multipart/form-data">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="room_Id" class="form-label fw-semibold">Seleccionar Habitación</label>
+                                <select required class="form-select" th:field="*{room_Id}">
+                                    <option value="" disabled selected>Selecciona una habitación</option>
+                                    <option th:each="item: ${ListadoRooms}" th:value="${item.roomNumber}"
+                                            th:text="'Habitación #' + ${item.roomNumber} + ' - ' + ${item.description}">
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="bytesArrayImage" class="form-label fw-semibold">Seleccionar Imagen</label>
+                                <input required type="file" name="imagenFile" id="bytesArrayImage" class="form-control">
+                            </div>
                         </div>
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                <i class="fas fa-times me-2"></i>Cancelar
+                            </button>
+                            <button type="submit" class="btn btn-gold">
+                                <i class="fas fa-save me-2"></i>Guardar Imagen
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
+
+        <!-- Paginación -->
+        <nav aria-label="Page navigation" class="mt-4" th:if="${pageNumbers != null}">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:each="pageNumber: ${pageNumbers}">
+                    <a class="page-link" th:href="@{/roomimage?page=${pageNumber}}" th:text="${pageNumber}"></a>
+                </li>
+            </ul>
+        </nav>
+
     </div>
-
-
-    <nav aria-label="Page navigation example">
-        <ul class="pagination">
-            <li class="page-item" th:each="pageNumber: ${pageNumbers}">
-                <a class="page-link" th:href="@{1/roomimage?page=${pageNumber}}" th:text="${pageNumber}"></a>
-            </li>
-        </ul>
-    </nav>
 </div>
