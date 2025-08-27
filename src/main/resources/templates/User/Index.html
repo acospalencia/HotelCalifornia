@@ -1,104 +1,223 @@
-<html lang="en"
+<html lang="es"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="/layouts/_mainLayout">
 
+<head>
+    <title layout:fragment="title">Usuarios | Hotel California</title>
+    <style>
+        .page-header {
+            background-size: cover;
+            background-position: center;
+            padding: 60px 0;
+            color: black;
+            border-radius: 10px;
+            margin: 20px 0 40px 0;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .table thead th {
+            background-color: #343a40;
+            color: white;
+            border: none;
+            padding: 15px;
+        }
+
+        .table tbody td {
+            padding: 15px;
+            vertical-align: middle;
+        }
+
+        .btn-action {
+            padding: 0.35rem 0.75rem;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+
+        .btn-gold {
+            background-color: #d4af37;
+            border-color: #d4af37;
+            color: white;
+            font-weight: 500;
+        }
+
+        .btn-gold:hover {
+            background-color: #b8941f;
+            border-color: #b8941f;
+            color: white;
+        }
+
+        .modal-header {
+            background-color: #d4af37;
+            color: white;
+        }
+
+        .pagination .page-item .page-link {
+            color: #343a40;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            margin: 0 3px;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #d4af37;
+            border-color: #d4af37;
+            color: white;
+        }
+    </style>
+</head>
+
 <div layout:fragment="content">
 
-    <h1>Listado de usuarios</h1>
-    <a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Nuevo usuario</a>
+    <!-- Encabezado -->
+    <div class="page-header text-center">
+        <div class="container">
+            <h1 class="display-5 fw-bold">Gestión de Usuarios </h1>
+            <p class="lead mb-0">Administra los usuarios registrados en el sistema</p>
+        </div>
+    </div>
 
-    <table class="table table-striped mt-3">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Email</th>
-            <th>Edad</th>
-            <th>Rol ID</th>
-            <th>Acciones</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="item : ${users}">
-            <td th:text="${item.id}"></td>
-            <td th:text="${item.firstName}"></td>
-            <td th:text="${item.lastName}"></td>
-            <td th:text="${item.email}"></td>
-            <td th:text="${item.age}"></td>
-            <td th:text="${item.rol.roleName}"></td>
-            <td>
-                <a th:href="@{/user/edit/{id}(id=${item.id})}" class="btn btn-outline-warning">Editar</a>
-                <a th:href="@{/user/remove/{id}(id=${item.id})}" class="btn btn-outline-danger"
-                   onclick="return confirm('¿Seguro que deseas eliminar este usuario?');">
-                    Eliminar
-                </a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="container">
+
+        <!-- Botón nuevo usuario -->
+        <div class="d-flex justify-content-between align-items-center mb-4 px-3">
+            <h2 class="mb-0">Listado de Usuarios</h2>
+            <a type="button" class="btn btn-gold" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <i class="fas fa-user-plus me-2"></i>Nuevo Usuario
+            </a>
+        </div>
+
+        <!-- Card con tabla -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <div class="table-container">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Email</th>
+                            <th>Edad</th>
+                            <th>Rol</th>
+                            <th class="text-end">Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="item : ${users}">
+                            <td th:text="${item.id}"></td>
+                            <td th:text="${item.firstName}"></td>
+                            <td th:text="${item.lastName}"></td>
+                            <td th:text="${item.email}"></td>
+                            <td th:text="${item.age}"></td>
+                            <td th:text="${item.rol.roleName}"></td>
+                            <td class="text-end">
+                                <div class="d-flex flex-column flex-md-row gap-2 justify-content-end">
+                                    <a th:href="@{/user/edit/{id}(id=${item.id})}"
+                                       class="btn btn-outline-warning btn-action">
+                                        <i class="fas fa-edit me-1"></i>Editar
+                                    </a>
+                                    <a th:href="@{/user/remove/{id}(id=${item.id})}"
+                                       class="btn btn-outline-danger btn-action"
+                                       onclick="return confirm('¿Seguro que deseas eliminar este usuario?');">
+                                        <i class="fas fa-trash-alt me-1"></i>Eliminar
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr th:if="${users.size() == 0}">
+                            <td colspan="7" class="text-center text-muted py-4">
+                                <i class="fas fa-user-slash fa-2x mb-2"></i>
+                                <p class="mb-0">No hay usuarios registrados</p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Paginación -->
+                <nav aria-label="Page navigation" class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" th:each="pageNumber: ${pageNumbers}"
+                            th:classappend="${pageNumber == currentPage} ? 'active'">
+                            <a class="page-link" th:href="@{/users(page=${pageNumber})}" th:text="${pageNumber}"></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal para agregar usuario -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar nuevo Usuario</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        <i class="fas fa-user-plus me-2"></i>Agregar nuevo Usuario
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
                 <form th:action="@{/user/save}" th:object="${user}" method="post">
                     <div class="modal-body">
 
                         <div class="mb-3">
-                            <label for="firstName" class="form-label">Nombre</label>
+                            <label for="firstName" class="form-label fw-semibold">Nombre</label>
                             <input required type="text" class="form-control" th:field="*{firstName}" id="firstName">
                         </div>
 
                         <div class="mb-3">
-                            <label for="lastName" class="form-label">Apellido</label>
+                            <label for="lastName" class="form-label fw-semibold">Apellido</label>
                             <input required type="text" class="form-control" th:field="*{lastName}" id="lastName">
                         </div>
 
                         <div class="mb-3">
-                            <label for="email" class="form-label">Correo</label>
+                            <label for="email" class="form-label fw-semibold">Correo</label>
                             <input required type="email" class="form-control" th:field="*{email}" id="email">
                         </div>
 
                         <div class="mb-3">
-                            <label for="userPasword" class="form-label">Contraseña</label>
+                            <label for="userPasword" class="form-label fw-semibold">Contraseña</label>
                             <input required type="password" class="form-control" th:field="*{userPasword}" id="userPasword">
                         </div>
 
                         <div class="mb-3">
-                            <label for="age" class="form-label">Edad</label>
+                            <label for="age" class="form-label fw-semibold">Edad</label>
                             <input required type="number" class="form-control" th:field="*{age}" id="age">
                         </div>
 
                         <div class="mb-3">
-                            <label for="rolId" class="form-label">ID del Rol</label>
+                            <label for="rolId" class="form-label fw-semibold">Rol</label>
                             <select required class="form-select mb-3" th:field="*{rol}">
-                                <option th:value="0" disabled selected>Click aqui para seleccionar una opcion</option>
+                                <option th:value="0" disabled selected>Selecciona un rol</option>
                                 <option th:each="item: ${roles}" th:value="${item.id}"
                                         th:text="'Rol: '+${item.roleName}"></option>
-                            </select>                        </div>
+                            </select>
+                        </div>
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <i class="fas fa-times me-2"></i>Cerrar
+                        </button>
+                        <button type="submit" class="btn btn-gold">
+                            <i class="fas fa-save me-2"></i>Guardar
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
-    <!-- Paginación -->
-    <nav aria-label="Page navigation example">
-        <ul class="pagination">
-            <li class="page-item" th:each="pageNumber: ${pageNumbers}">
-                <a class="page-link" th:href="@{/users(page=${pageNumber})}" th:text="${pageNumber}"></a>
-            </li>
-        </ul>
-    </nav>
 
 </div>
