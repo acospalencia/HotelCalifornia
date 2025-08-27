@@ -26,7 +26,7 @@
             <td th:text="${item.lastName}"></td>
             <td th:text="${item.email}"></td>
             <td th:text="${item.age}"></td>
-            <td th:text="${item.rolId}"></td>
+            <td th:text="${item.rol.roleName}"></td>
             <td>
                 <a th:href="@{/user/edit/{id}(id=${item.id})}" class="btn btn-outline-warning">Editar</a>
                 <a th:href="@{/user/remove/{id}(id=${item.id})}" class="btn btn-outline-danger"
@@ -76,8 +76,11 @@
 
                         <div class="mb-3">
                             <label for="rolId" class="form-label">ID del Rol</label>
-                            <input required type="number" class="form-control" th:field="*{rolId}" id="rolId">
-                        </div>
+                            <select required class="form-select mb-3" th:field="*{rol}">
+                                <option th:value="0" disabled selected>Click aqui para seleccionar una opcion</option>
+                                <option th:each="item: ${roles}" th:value="${item.id}"
+                                        th:text="'Rol: '+${item.roleName}"></option>
+                            </select>                        </div>
 
                     </div>
                     <div class="modal-footer">
@@ -93,7 +96,7 @@
     <nav aria-label="Page navigation example">
         <ul class="pagination">
             <li class="page-item" th:each="pageNumber: ${pageNumbers}">
-                <a class="page-link" th:href="@{1/users?page=${pageNumber}}" th:text="${pageNumber}"></a>
+                <a class="page-link" th:href="@{/users(page=${pageNumber})}" th:text="${pageNumber}"></a>
             </li>
         </ul>
     </nav>

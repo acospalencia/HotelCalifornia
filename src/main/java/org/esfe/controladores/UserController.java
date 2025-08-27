@@ -1,6 +1,8 @@
 package org.esfe.controladores;
 
+import org.esfe.modelos.Role;
 import org.esfe.modelos.User;
+import org.esfe.servicios.interfaces.IRolesService;
 import org.esfe.servicios.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,6 +26,9 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
+    @Autowired
+    private IRolesService rolesService;
+
     // Listar con paginación
     @GetMapping
     public String index(User user, Model model,
@@ -35,6 +40,9 @@ public class UserController {
 
         Page<User> users = userService.buscarTodosPaginados(pageable);
         model.addAttribute("users", users);
+
+        List<Role> roles = rolesService.obtenerTodos();
+        model.addAttribute("roles", roles);
 
         int totalPages = users.getTotalPages();
         if (totalPages > 0) {
@@ -70,6 +78,9 @@ public class UserController {
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Integer id, Model model, RedirectAttributes attributes) {
         Optional<User> user = userService.bucarPorId(id);
+
+        List<Role> roles = rolesService.obtenerTodos();
+        model.addAttribute("roles", roles);
         if (user.isPresent()) {
             model.addAttribute("user", user.get());
             return "user/edit"; // Vista de edición
