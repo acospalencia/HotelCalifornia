@@ -6,9 +6,11 @@ import org.esfe.modelos.Role;
 import org.esfe.modelos.Room;
 import org.esfe.modelos.User;
 import org.esfe.servicios.implementaciones.CustomUserDetails;
+import org.esfe.servicios.implementaciones.UserService;
 import org.esfe.servicios.interfaces.IReservationService;
 import org.esfe.servicios.interfaces.IRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,6 +30,9 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/reservation")
 public class ReservationController {
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private IReservationService reservationService;
@@ -68,11 +73,7 @@ public class ReservationController {
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute Reservation reservation,
-                       BindingResult result,
-                       Model model,
-                       RedirectAttributes attributes,
-                       @ModelAttribute("usuarioActual") CustomUserDetails usuarioActual) {
+    public String save(@ModelAttribute Reservation reservation, BindingResult result, Model model, RedirectAttributes attributes, @ModelAttribute("usuarioActual") CustomUserDetails usuarioActual) {
 
         if (result.hasErrors()) {
             model.addAttribute("reservation", reservation);
@@ -83,15 +84,26 @@ public class ReservationController {
         User usu = new User();
         usu.setId(usuarioActual.getId());
 
-        // Asignar el usuario logueado
-        reservation.setUser(usu); // suponiendo que CustomUserDetails tiene getUser()
+        reservation.setUser(usu);
 
-        // Asignar la fecha de pago actual
         reservation.setPayDate(LocalDate.now());
 
         reservationService.createOrEditOne(reservation);
         attributes.addFlashAttribute("msg", "Reservación creada correctamente.");
-        return "redirect:/reservation"; // vuelve a la página de reservas
+        return "redirect:/reservation/misreservas"; // vuelve a la página de reservas
     }
 
+    @GetMapping("/misreservas")
+    public String listarMisReservaciones(Model model, Authentication authentication) {
+
+        String email = authentication.getName();
+
+        User user = userService.buscarPorEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        List<Reservation> misReservas = reservationService.findByUser(user);
+
+        model.addAttribute("misReservas", misReservas);
+        return "reservation/misreservas";
+    }
 }

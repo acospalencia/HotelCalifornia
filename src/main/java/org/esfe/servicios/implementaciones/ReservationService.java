@@ -1,6 +1,7 @@
 package org.esfe.servicios.implementaciones;
 
 import org.esfe.modelos.Reservation;
+import org.esfe.modelos.User;
 import org.esfe.repositorios.IReservationRepository;
 import org.esfe.servicios.interfaces.IReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,4 +42,10 @@ public class ReservationService implements IReservationService {
     public void eliminarPorId(Integer reservation) {
         reservationRepository.deleteById(reservation);
     }
+
+    @Override
+    public List<Reservation> findByUser(User user) {
+        return reservationRepository.findByUser(user);
+    }
+
 }

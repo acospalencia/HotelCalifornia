@@ -1,6 +1,7 @@
 package org.esfe.servicios.interfaces;
 
 import org.esfe.modelos.Reservation;
+import org.esfe.modelos.User;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 
@@ -18,4 +19,6 @@ public interface IReservationService {
     Reservation createOrEditOne(Reservation reservation);
 
     void eliminarPorId(Integer reservation);
+
+    List<Reservation> findByUser(User user);
 }

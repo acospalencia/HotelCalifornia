@@ -54,6 +54,10 @@
                              <span class="dropdown-item disabled" th:if="${usuarioActual != null}"
                                  th:text="'Usuario: ' + ${usuarioActual.firstName} + ' ' + ${usuarioActual.lastName}"></span>
                         </li>
+                        <li>
+                             <a class="dropdown-item " th:if="${usuarioActual != null}"
+                                href="/reservation/misreservas"> Mis reservaciones</a>
+                        </li>
                         <li sec:authorize="isAnonymous()">
                             <a class="dropdown-item" th:href="@{/login}">Iniciar Sesión</a>
                         </li>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/_mainLayout}">
+
+<head>
+    <title layout:fragment="title">Mis Reservaciones | Hotel California</title>
+    <link rel="stylesheet" th:href="@{css/Reservation.css}">
+</head>
+
+<div layout:fragment="content">
+
+    <!-- Encabezado de página -->
+    <div class="page-header text-center">
+        <div class="container">
+            <h1 class="display-5 fw-bold">Mis Reservaciones 🛎️</h1>
+            <p class="lead mb-0">Consulta el historial de tus reservaciones en Hotel California</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Tarjeta de contenido principal -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h2 class="h4 mb-1">Listado de Reservaciones</h2>
+                        <p class="text-muted mb-0" th:text="${misReservas.size} + ' reservaciones encontradas'"></p>
+                    </div>
+                </div>
+
+                <!-- Tabla de reservaciones -->
+                <div class="table-container">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Fecha</th>
+                            <th>Habitación</th>
+                            <th>Cantidad Pagada</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="res : ${misReservas}" th:class="${resStat.even}? 'table-light'">
+                            <td th:text="${res.id}"></td>
+                            <td th:text="${#temporals.format(res.payDate, 'dd/MM/yyyy')}"></td>
+                            <td th:text="${res.roomId.roomNumber}"></td>
+                            <td th:text="${#numbers.formatDecimal(res.amountPaid, 1, 'POINT', 2, 'COMMA')}"></td>
+
+                        </tr>
+                        <tr th:if="${misReservas.size == 0}">
+                            <td colspan="5">
+                                <div class="empty-state">
+                                    <i class="fas fa-bed"></i>
+                                    <h4>No tienes reservaciones registradas</h4>
+                                    <p>Cuando realices una reservación aparecerá en este listado.</p>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</html>
