@@ -50,12 +50,12 @@
                         <tr th:each="item : ${rooms}" th:class="${itemStat.even}? 'table-light'">
                             <td th:text="${item.roomNumber}"></td>
                             <td>
-                                <span th:text="${item.roomTypeId.typeName}"></span>
+                                <span th:text="${item.roomTypeName}"></span>
                                 <small class="d-block text-muted"
-                                       th:text="'$' + ${item.roomTypeId.roomPrice} + '/noche'"></small>
+                                       th:text="'$' + ${item.roomPrice} + '/noche'"></small>
                             </td>
                             <td th:text="${item.floor}"></td>
-                            <td class="fw-bold estado " th:text="${item.statusId.statusName}"></td>
+                            <td class="fw-bold estado " th:text="${item.statusName}"></td>
                             <td>
                                 <span th:text="${item.description} ?: 'Sin descripción'"></span>
                             </td>
@@ -77,19 +77,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr th:if="${rooms.totalElements == 0}">
-                            <td colspan="6">
-                                <div class="empty-state">
-                                    <i class="fas fa-bed"></i>
-                                    <h4>No hay habitaciones registradas</h4>
-                                    <p>Comienza agregando una nueva habitación al sistema.</p>
-                                    <button type="button" class="btn btn-gold mt-2" data-bs-toggle="modal"
-                                            data-bs-target="#roomModal">
-                                        <i class="fas fa-plus-circle me-2"></i>Crear primera habitación
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+
                         </tbody>
                     </table>
                 </div>

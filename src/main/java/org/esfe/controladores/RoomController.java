@@ -34,30 +34,43 @@ public class RoomController {
     private IStatusService statusService;
 
     @GetMapping
-    public String Index(Room room, Model model, @RequestParam("page")Optional<Integer> page, @RequestParam("size")Optional<Integer> size){
+    public String Index(Room roomi, Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
 
-        int currentPage = page.orElse(1)-1;
+        int currentPage = page.orElse(1) - 1;
         int pageSize = size.orElse(12);
         Pageable pageable = PageRequest.of(currentPage, pageSize);
 
+        Page<Room> roomsPage = roomService.buscarTodosPaginados(pageable);
 
-        Page<Room> rooms = roomService.buscarTodosPaginados(pageable);
-        model.addAttribute("rooms", rooms);
+        // Convertir Room -> RoomDTO
+        Page<RoomDTO> roomsDTOPage = roomsPage.map(room ->
+                new RoomDTO(
+                        room.getRoomNumber(),
+                        room.getRoomTypeId().getTypeName(),
+                        room.getRoomTypeId().getRoomPrice(),
+                        room.getFloor(),
+                        room.getStatusId().getStatusName(),
+                        room.getDescription()
+                )
+        );
 
-        List<RoomType> listadoTipos =  roomTypeService.obtenerTodos();
-        model.addAttribute("listadoTipos",listadoTipos);
+        model.addAttribute("rooms", roomsDTOPage);
+
+        List<RoomType> listadoTipos = roomTypeService.obtenerTodos();
+        model.addAttribute("listadoTipos", listadoTipos);
 
         List<Status> estados = statusService.obtenerTodos();
-        model.addAttribute("estados",estados);
+        model.addAttribute("estados", estados);
 
-        int totalPages = rooms.getTotalPages();
+        int totalPages = roomsDTOPage.getTotalPages();
         if (totalPages > 0){
             List<Integer> pageNumber = IntStream.rangeClosed(1,totalPages)
                     .boxed().collect(Collectors.toList());
-            model.addAttribute("pageNumbers",pageNumber);
+            model.addAttribute("pageNumbers", pageNumber);
         }
         return "room/Index";
     }
+
 
 
     @PostMapping("/save")

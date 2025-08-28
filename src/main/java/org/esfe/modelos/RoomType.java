@@ -9,6 +9,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.math.BigDecimal;
+
 @Entity
 public class RoomType {
 
@@ -20,7 +22,7 @@ public class RoomType {
     private String typeName;
 
     @NotNull(message = "El nombre del estado es requerido")
-    private double roomPrice;
+    private BigDecimal roomPrice;
 
     public Integer getId() {
         return id;
@@ -38,11 +40,11 @@ public class RoomType {
         this.typeName = typeName;
     }
 
-    public double getRoomPrice() {
+    public BigDecimal getRoomPrice() {
         return roomPrice;
     }
 
-    public void setRoomPrice(double roomPrice) {
+    public void setRoomPrice(BigDecimal roomPrice) {
         this.roomPrice = roomPrice;
     }
 }

@@ -36,9 +36,9 @@ public class User {
 
     @ManyToOne
     @JoinColumn(name = "rol_Id", nullable = false)
-    @NotBlank(message = "El id del rol es requerido")
+    @NotNull(message = "El id del rol es requerido")
     private Role rol;
-    
+
 
     public Integer getId() {
         return id;

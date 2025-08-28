@@ -1,5 +1,6 @@
 package org.esfe.modelos;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -41,6 +42,7 @@ public class Room {
     }
 
     @OneToMany(mappedBy = "room_Id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<RoomImage> images;
 
     public Integer getRoomNumber() {
