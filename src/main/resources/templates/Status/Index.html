@@ -6,14 +6,22 @@
 
 <head>
     <title layout:fragment="title">Estados de habitaciones | Hotel California</title>
+    <link rel="stylesheet" th:href="@{css/RoomType.css}">
 </head>
 
 <div layout:fragment="content">
 
+    <!-- Encabezado -->
+    <div class="page-header text-center">
+        <div class="container">
+            <h1 class="display-5 fw-bold">Listado de Estados de habitaciones🖼️</h1>
+            <p class="lead mb-0">Administra el Listado de Estados de habitaciones</p>
+        </div>
+    </div>
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>Listado de Estados de habitaciones</h1>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRoomType">
-            Nuevo estado
+        <h2 class="h4 mb-0">Listado de Estados de habitaciones</h2>
+        <button type="button" class="btn btn-gold" data-bs-toggle="modal" data-bs-target="#modalRoomType">
+            <i class="fas fa-plus-circle me-2"></i>Nuevo estado
         </button>
     </div>
 

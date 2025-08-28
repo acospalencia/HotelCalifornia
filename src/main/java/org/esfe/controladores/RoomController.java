@@ -50,9 +50,6 @@ public class RoomController {
         List<Status> estados = statusService.obtenerTodos();
         model.addAttribute("estados",estados);
 
-
-
-
         int totalPages = rooms.getTotalPages();
         if (totalPages > 0){
             List<Integer> pageNumber = IntStream.rangeClosed(1,totalPages)

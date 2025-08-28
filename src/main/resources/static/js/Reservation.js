@@ -2,6 +2,7 @@ const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
 let typePaid = 0;
+let total = 0;
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -33,6 +34,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener('DOMContentLoaded', () => {
   const buttons = document.querySelectorAll('.reserve-btn');
+
+total = 0;
 
   buttons.forEach(btn => {
     btn.addEventListener('click', () => {

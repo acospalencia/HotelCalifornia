@@ -31,9 +31,6 @@ public class Reservation {
     @NotNull(message = "La fecha de salida es requerida")
     private LocalDate checkOutDate;
 
-    @NotNull(message = "El total del monto es requerido")
-    private BigDecimal totalPurchase;
-
     @NotNull(message = "La fecha de pago es requerida")
     private LocalDate payDate;
 
@@ -78,14 +75,6 @@ public class Reservation {
 
     public void setCheckOutDate(LocalDate checkOutDate) {
         this.checkOutDate = checkOutDate;
-    }
-
-    public BigDecimal getTotalPurchase() {
-        return totalPurchase;
-    }
-
-    public void setTotalPurchase(BigDecimal totalPurchase) {
-        this.totalPurchase = totalPurchase;
     }
 
     public LocalDate getPayDate() {

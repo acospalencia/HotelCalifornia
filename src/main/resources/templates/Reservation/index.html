@@ -6,456 +6,167 @@
 
 <head>
     <title layout:fragment="title">Reservaciones | Hotel California</title>
-    <style>
-        .page-header {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-                        url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=400&q=80');
-            background-size: cover;
-            background-position: center;
-            padding: 60px 0;
-            color: white;
-            border-radius: 10px;
-            margin: 20px 0 40px 0;
-        }
-
-        .card {
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        }
-
-        .piso-img {
-            transition: all 0.3s ease;
-        }
-
-        .piso-img:hover {
-            transform: scale(1.02);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .room-card .card {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .btn-gold {
-            background-color: #d4af37;
-            border-color: #d4af37;
-            color: white;
-            font-weight: 500;
-        }
-
-        .btn-gold:hover {
-            background-color: #b8941f;
-            border-color: #b8941f;
-            color: white;
-        }
-
-        .modal-header {
-            background-color: #d4af37;
-            color: white;
-        }
-
-        .cursor-pointer {
-            cursor: pointer;
-        }
-
-        .floor-active {
-            border: 3px solid #d4af37 !important;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
-        }
-
-        .room-occupied {
-            opacity: 0.6;
-            position: relative;
-        }
-
-        .room-occupied::after {
-            content: "OCUPADA";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(220, 53, 69, 0.8);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{css/Reservation.css}">
 </head>
 
 <div layout:fragment="content">
-
 
     <!-- Encabezado de página -->
     <div class="page-header text-center">
         <div class="container">
             <h1 class="display-5 fw-bold">Reservaciones 🏨</h1>
             <p class="lead mb-0">Realiza tu reserva en el Hotel California</p>
+        </div>
+    </div>
 
-            <div class="row border border-2 border-color border-black rounded mt-5 pb-5">
-                <div class="col-sm-12 col-md-12 col-lg-5 text-center ">
-                    <h3 class="mt-4">Seleccionar piso</h3>
-                    <div class="d-flex justify-content-center">
-                        <img data-floor="4" th:src="@{assets/pisosPorFuera.png}"
-                             class="piso-img img-fluid w-75 rounded-top border border-2 border-dark border-bottom-0 cursor-pointer"
-                             data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Piso #4"/>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <img data-floor="3" th:src="@{assets/pisosPorFuera.png}"
-                             class="piso-img img-fluid w-75 border-start border-end border border-2 border-dark cursor-pointer"
-                             data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Piso #3"/>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <img data-floor="2" th:src="@{assets/pisosPorFuera.png}"
-                             class="piso-img img-fluid w-75 border-start border-end border border-2 border-dark cursor-pointer"
-                             data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Piso #2"/>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <img data-floor="1" th:src="@{assets/pisosPorFuera.png}"
-                             class="piso-img img-fluid w-75 border-start border-end border border-2 border-dark cursor-pointer"
-                             data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Piso #1"/>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <img th:src="@{assets/PisoPuerta.png}"
-                             class="img-fluid w-75 border-start border-end border border-2 border-dark"
-                             data-bs-toggle="tooltip"
-                             data-bs-placement="left" data-bs-title="Entrada Principal"/>
-                    </div>
-                </div>
-            </div>
 
-            <div class="container">
-                <!-- Tarjeta de contenido principal -->
-                <div class="card shadow-sm mb-4">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                            <div>
-                                <h2 class="h4 mb-1">Selecciona una Habitación</h2>
-                                <p class="text-muted mb-0">Elige el piso y la habitación que deseas reservar</p>
-                            </div>
+    <div class="container">
+        <!-- Tarjeta de contenido principal -->
+        <div class="card shadow-sm mb-4 border border-2 border-dark rounded">
+            <div class="card-body">
+                <div class="row">
+                    <!-- Selección de pisos -->
+                    <div class="col-sm-12 col-md-12 col-lg-5 text-center">
+                        <h3 class="mb-4">Seleccionar Piso</h3>
+                        <div class="d-flex justify-content-center ">
+                            <img data-floor="4" th:src="@{/assets/pisosPorFuera.png}"
+                                 class="piso-img img-fluid w-75 rounded-top border border-2 border-dark border-bottom-0 cursor-pointer "
+                                 data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Piso #4"/>
                         </div>
+                        <div class="d-flex justify-content-center ">
+                            <img data-floor="3" th:src="@{/assets/pisosPorFuera.png}"
+                                 class="piso-img img-fluid w-75 border-start border-end border border-2 border-dark cursor-pointer"
+                                 data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Piso #3"/>
+                        </div>
+                        <div class="d-flex justify-content-center ">
+                            <img data-floor="2" th:src="@{/assets/pisosPorFuera.png}"
+                                 class="piso-img img-fluid w-75 border-start border-end border border-2 border-dark cursor-pointer"
+                                 data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Piso #2"/>
+                        </div>
+                        <div class="d-flex justify-content-center ">
+                            <img data-floor="1" th:src="@{/assets/pisosPorFuera.png}"
+                                 class="piso-img img-fluid w-75 border-start border-end border border-2 border-dark cursor-pointer"
+                                 data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Piso #1"/>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <img th:src="@{/assets/PisoPuerta.png}"
+                                 class="img-fluid w-75 border-start border-end border border-2 border-dark"
+                                 data-bs-toggle="tooltip"
+                                 data-bs-placement="left" data-bs-title="Entrada Principal"/>
+                        </div>
+                    </div>
 
-                        <div class="row">
-                            <!-- Selección de pisos -->
-                            <div class="col-sm-12 col-md-12 col-lg-5 text-center">
-                                <h3 class="mb-4">Seleccionar Piso</h3>
-                                <div class="d-flex justify-content-center mb-2">
-                                    <img data-floor="4" th:src="@{/assets/pisosPorFuera.png}"
-                                         class="piso-img img-fluid w-75 rounded-top border border-2 border-dark border-bottom-0 cursor-pointer floor-active"
-                                         data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Piso #4"/>
-                                </div>
-                                <div class="d-flex justify-content-center mb-2">
-                                    <img data-floor="3" th:src="@{/assets/pisosPorFuera.png}"
-                                         class="piso-img img-fluid w-75 border-start border-end border border-2 border-dark cursor-pointer"
-                                         data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Piso #3"/>
-                                </div>
-                                <div class="d-flex justify-content-center mb-2">
-                                    <img data-floor="2" th:src="@{/assets/pisosPorFuera.png}"
-                                         class="piso-img img-fluid w-75 border-start border-end border border-2 border-dark cursor-pointer"
-                                         data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Piso #2"/>
-                                </div>
-                                <div class="d-flex justify-content-center mb-2">
-                                    <img data-floor="1" th:src="@{/assets/pisosPorFuera.png}"
-                                         class="piso-img img-fluid w-75 border-start border-end border border-2 border-dark cursor-pointer"
-                                         data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Piso #1"/>
-                                </div>
-                                <div class="d-flex justify-content-center">
-                                    <img th:src="@{/assets/PisoPuerta.png}"
-                                         class="img-fluid w-75 border-start border-end border border-2 border-dark"
-                                         data-bs-toggle="tooltip"
-                                         data-bs-placement="left" data-bs-title="Entrada Principal"/>
-                                </div>
-                            </div>
+                    <!-- Habitaciones -->
+                    <div class="col-sm-12 col-md-12 col-lg-7">
+                        <h3 class="text-center mb-4" id="txt-tema"></h3>
+                        <div id="rooms-container" class="row">
+                            <div th:each="room : ${rooms}" th:attr="data-floor=${room.floor}"
+                                 class="col-md-6 col-lg-4 mb-3 room-card">
+                                <div class="card p-3"
+                                     th:classappend="${room.status == 'OCCUPIED'} ? 'room-occupied'">
+                                    <div class="row">
+                                        <div class="col-12 text-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"
+                                                 fill="currentColor"
+                                                 class="bi bi-house-door mb-2" viewBox="0 0 16 16">
+                                                <path
+                                                        d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"/>
+                                            </svg>
+                                            <p class="mb-1 fs-custom"
+                                               th:text="${room.roomType} + ' #' + ${room.roomNumber}"></p>
 
-                            <!-- Habitaciones -->
-                            <div class="col-sm-12 col-md-12 col-lg-7">
-                                <h3 class="text-center mb-4" id="txt-tema">Habitaciones - Piso 4</h3>
-                                <div id="rooms-container" class="row">
-                                    <div th:each="room : ${rooms}" th:attr="data-floor=${room.floor}"
-                                         class="col-md-6 col-lg-4 mb-3 room-card">
-                                        <div class="card p-3"
-                                             th:classappend="${room.status == 'OCCUPIED'} ? 'room-occupied'">
-                                            <div class="row">
-                                                <div class="col-12 text-center">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"
-                                                         fill="currentColor"
-                                                         class="bi bi-house-door mb-2" viewBox="0 0 16 16">
-                                                        <path
-                                                                d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"/>
-                                                    </svg>
-                                                    <h5 th:text="'Habitación ' + ${room.roomNumber}"></h5>
-                                                    <p class="mb-1" th:text="${room.roomType}"></p>
-                                                    <small class="text-muted"
-                                                           th:text="'Piso: ' + ${room.floor}"></small>
-                                                </div>
-                                            </div>
-                                            <button type="button" class="btn btn-gold mt-3 reserve-btn"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#roomModal"
-                                                    th:disabled="${room.status == 'OCCUPIED'}"
-                                                    th:data-room-id="${room.id}"
-                                                    th:data-room-number="${room.roomNumber}"
-                                                    th:data-room-type="${room.roomType}" th:data-floor="${room.floor}"
-                                                    th:data-status="${room.status}"
-                                                    th:data-description="${room.description}"
-                                                    th:data-images="${room.imagesJson}">
-                                                <span th:if="${room.status != 'OCCUPIED'}">Reservar</span>
-                                                <span th:if="${room.status == 'OCCUPIED'}">No disponible</span>
-                                            </button>
                                         </div>
                                     </div>
+                                    <button type="button" class="btn btn-gold mt-3 reserve-btn"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#roomModal"
+                                            th:disabled="${room.status == 'OCCUPIED'}"
+                                            th:data-room-id="${room.id}"
+                                            th:data-room-number="${room.roomNumber}"
+                                            th:data-room-type="${room.roomType}" th:data-floor="${room.floor}"
+                                            th:data-status="${room.status}"
+                                            th:data-description="${room.description}"
+                                            th:data-images="${room.imagesJson}">
+                                        Reservar
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Modal para realizar reserva -->
-            <div class="modal fade" id="roomModal" tabindex="-1" aria-labelledby="roomModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="roomModalLabel">
-                                <i class="fas fa-calendar-check me-2"></i>Realizar Reservación
-                            </h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Cerrar"></button>
-                        </div>
-                        <div class="modal-body">
-
-                            <div id="modalImages" class="carousel slide mb-4" data-bs-ride="carousel">
-                                <div class="carousel-inner rounded" id="carousel-inner"></div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#modalImages"
-                                        data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Anterior</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#modalImages"
-                                        data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Siguiente</span>
-                                </button>
-                            </div>
-
-                            <div id="modalInfo" class="mb-4">
-                                <h4 id="modalRoomTitle" class="mb-3"></h4>
-                                <p id="modalRoomDescription" class="text-muted"></p>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <p><strong>Tipo:</strong> <span id="modalRoomType"></span></p>
-                                        <p><strong>Piso:</strong> <span id="modalRoomFloor"></span></p>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p><strong>Número:</strong> <span id="modalRoomNumber"></span></p>
-                                        <p><strong>Estado:</strong> <span id="modalRoomStatus" class="badge bg-success">Disponible</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div id="modalImages" class="d-flex mb-3 col-4"></div>
-                            </div>
-
-                            <div id="modalInfo" class="mb-3 fs-5"></div>
-
-
-                            <form id="reservationForm" th:action="@{/reservation/save}" th:object="${reservation}"
-                                  method="post">
-                                <input type="hidden" name="roomId" id="formRoomId">
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="checkInDate" class="form-label fw-semibold">Fecha de Entrada</label>
-                                        <input type="date" name="checkInDate" id="checkInDate" class="form-control"
-                                               required
-                                               min="" onchange="calculateTotal()">
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="checkOutDate" class="form-label fw-semibold">Fecha de Salida</label>
-                                        <input type="date" name="checkOutDate" id="checkOutDate" class="form-control"
-                                               required
-                                               min="" onchange="calculateTotal()">
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="amountPaid" class="form-label fw-semibold">Monto a Pagar ($)</label>
-                                    <input type="number" name="amountPaid" id="amountPaid" class="form-control" required
-                                           readonly>
-                                    <div class="form-text">El monto se calcula automáticamente según las fechas
-                                        seleccionadas.
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                        <i class="fas fa-times me-2"></i>Cancelar
-                                    </button>
-                                    <button type="submit" class="btn btn-gold">
-                                        <i class="fas fa-save me-2"></i>Confirmar Reserva
-                                    </button>
-
-                                    <div class="mb-3">
-                                        <label for="checkInDate" class="form-label">Fecha de Entrada</label>
-                                        <input type="date" class="form-control" id="checkInDate" name="checkInDate"
-                                               th:field="*{checkInDate}">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="checkOutDate" class="form-label">Fecha de Salida</label>
-                                        <input type="date" class="form-control" id="checkOutDate" name="checkOutDate"
-                                               th:field="*{checkOutDate}">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Noches a Reservar</label>
-                                        <input type="text" id="nightsCount" class="form-control" readonly>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="amountPaid" class="form-label">Monto a Pagar</label>
-                                        <input type="number" name="amountPaid" id="amountPaid" class="form-control"
-                                               readonly>
-
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    // Activar tooltips de Bootstrap
-                    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-                    tooltipTriggerList.map(function (tooltipTriggerEl) {
-                        return new bootstrap.Tooltip(tooltipTriggerEl);
-                    });
-
-                    // Manejar clic en imágenes de pisos
-                    const floorImages = document.querySelectorAll('.piso-img');
-                    floorImages.forEach(img => {
-                        img.addEventListener('click', function() {
-                            const floor = this.getAttribute('data-floor');
-
-                            // Quitar clase activa de todos los pisos
-                            floorImages.forEach(i => i.classList.remove('floor-active'));
-                            // Agregar clase activa al piso seleccionado
-                            this.classList.add('floor-active');
-
-                            // Filtrar habitaciones por piso
-                            filterRoomsByFloor(floor);
-
-                            // Actualizar texto
-                            document.getElementById('txt-tema').textContent = 'Habitaciones - Piso ' + floor;
-                        });
-                    });
-
-                    // Configurar modal de habitación
-                    const roomModal = document.getElementById('roomModal');
-                    roomModal.addEventListener('show.bs.modal', function (event) {
-                        const button = event.relatedTarget;
-                        const roomId = button.getAttribute('data-room-id');
-                        const roomNumber = button.getAttribute('data-room-number');
-                        const roomType = button.getAttribute('data-room-type');
-                        const floor = button.getAttribute('data-floor');
-                        const status = button.getAttribute('data-status');
-                        const description = button.getAttribute('data-description');
-                        const imagesJson = button.getAttribute('data-images');
-
-                        // Parsear imágenes si están disponibles
-                        let images = [];
-                        try {
-                            images = JSON.parse(imagesJson);
-                        } catch (e) {
-                            console.error('Error parsing images JSON:', e);
-                            images = ['https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=300&q=80'];
-                        }
-
-                        // Actualizar contenido del modal
-                        document.getElementById('modalRoomTitle').textContent = 'Habitación ' + roomNumber;
-                        document.getElementById('modalRoomType').textContent = roomType;
-                        document.getElementById('modalRoomFloor').textContent = floor;
-                        document.getElementById('modalRoomNumber').textContent = roomNumber;
-                        document.getElementById('modalRoomDescription').textContent = description || 'Una confortable habitación para su estancia.';
-
-                        // Actualizar estado
-                        const statusBadge = document.getElementById('modalRoomStatus');
-                        if (status === 'OCCUPIED') {
-                            statusBadge.textContent = 'Ocupada';
-                            statusBadge.className = 'badge bg-danger';
-                        } else {
-                            statusBadge.textContent = 'Disponible';
-                            statusBadge.className = 'badge bg-success';
-                        }
-
-                        // Actualizar imágenes en el carrusel
-                        const carouselInner = document.getElementById('carousel-inner');
-                        carouselInner.innerHTML = '';
-
-                        images.forEach((img, index) => {
-                            const item = document.createElement('div');
-                            item.className = index === 0 ? 'carousel-item active' : 'carousel-item';
-                            item.innerHTML = `<img src="${img}" class="d-block w-100" alt="Habitación ${roomNumber}" style="height: 300px; object-fit: cover;">`;
-                            carouselInner.appendChild(item);
-                        });
-
-                        // Establecer roomId en el formulario
-                        document.getElementById('formRoomId').value = roomId;
-
-                        // Establecer fecha mínima como hoy
-                        const today = new Date().toISOString().split('T')[0];
-                        document.getElementById('checkInDate').min = today;
-                        document.getElementById('checkOutDate').min = today;
-
-                        // Reiniciar formulario
-                        document.getElementById('checkInDate').value = '';
-                        document.getElementById('checkOutDate').value = '';
-                        document.getElementById('amountPaid').value = '';
-                    });
-
-                    // Filtrar habitaciones por piso (inicialmente piso 4)
-                    filterRoomsByFloor(4);
-                });
-
-                function filterRoomsByFloor(floor) {
-                    const roomCards = document.querySelectorAll('.room-card');
-                    roomCards.forEach(card => {
-                        if (card.getAttribute('data-floor') === floor) {
-                            card.style.display = 'block';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
-                }
-
-                function calculateTotal() {
-                    const checkInDate = new Date(document.getElementById('checkInDate').value);
-                    const checkOutDate = new Date(document.getElementById('checkOutDate').value);
-
-                    if (checkInDate && checkOutDate && checkOutDate > checkInDate) {
-                        // Calcular diferencia en días
-                        const diffTime = Math.abs(checkOutDate - checkInDate);
-                        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-                        // Precio por noche (ejemplo: $100 por noche)
-                        const pricePerNight = 100;
-                        const total = diffDays * pricePerNight;
-
-                        document.getElementById('amountPaid').value = total;
-                    } else {
-                        document.getElementById('amountPaid').value = '';
-                    }
-                }
-            </script>
         </div>
-      </div>
+    </div>
+
+    <!-- Modal para realizar reserva -->
+    <div class="modal fade" id="roomModal" tabindex="-1" aria-labelledby="roomModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="roomModalLabel">
+                        <i class="fas fa-calendar-check me-2"></i>Realizar Reservación
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div id="modalImages" class="d-flex mb-3 col-4"></div>
+                    </div>
+
+                    <!-- Info de la habitación -->
+                    <div id="modalInfo" class="mb-4"></div>
+
+                    <form id="reservationForm"
+                          th:action="@{/reservation/save}"
+                          th:object="${reservation}"
+                          method="post">
+
+                        <!-- id de la habitación -->
+                        <input type="hidden" th:field="*{roomId}" id="formRoomId">
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="checkInDate" class="form-label fw-semibold">Fecha de Entrada</label>
+                                <input type="date" th:field="*{checkInDate}" id="checkInDate" class="form-control"
+                                       required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="checkOutDate" class="form-label fw-semibold">Fecha de Salida</label>
+                                <input type="date" th:field="*{checkOutDate}" id="checkOutDate" class="form-control"
+                                       required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Noches a Reservar</label>
+                            <input type="text" id="nightsCount" class="form-control" readonly>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="amountPaid" class="form-label">Monto a Pagar ($)</label>
+                            <input type="number" th:field="*{amountPaid}" id="amountPaid" class="form-control" readonly
+                                   required>
+                            <div class="form-text">El monto se calcula automáticamente según las fechas seleccionadas.
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                <i class="fas fa-times me-2"></i>Cancelar
+                            </button>
+                            <button type="submit" class="btn btn-gold">
+                                <i class="fas fa-save me-2"></i>Confirmar Reserva
+                            </button>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>
+</html>

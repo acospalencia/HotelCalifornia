@@ -17,6 +17,6 @@ public class GlobalControllerAdvice {
             return (CustomUserDetails) auth.getPrincipal();
         }
 
-        return null; // evita null
+        return null;
     }
 }
